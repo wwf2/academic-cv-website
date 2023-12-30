@@ -11,12 +11,12 @@ sections:
       title: Welcome
       # Choose a user profile to display (a folder name within `content/authors/`)
       username: admin
-  - block: cv
+  - block: markdown
     id: cv
     content:
       title: Curriculum Vitae
       text: Download a [PDF copy of my CV](uploads/Franko_CV.pdf)
-  - block: books
+  - block: markdown
     id: books
     content:
       title: Books
@@ -32,8 +32,7 @@ sections:
     content:
       title: Contact
       subtitle:
-      text: |-
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mi diam, venenatis ut magna et, vehicula efficitur enim.
+      text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mi diam, venenatis ut magna et, vehicula efficitur enim.
       # Contact (add or remove contact options as necessary)
       email: william.franko@mail.wvu.edu
       phone: (304) 554-9838
