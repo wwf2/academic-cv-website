@@ -15,8 +15,7 @@ sections:
     id: cv
     content:
       title: Curriculum Vitae
-      text: |-
-      Download a [PDF copy of my CV](uploads/Franko_CV.pdf)
+      text: Download a [PDF copy of my CV](uploads/Franko_CV.pdf)
   - block: books
     id: books
     content:
