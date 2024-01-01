@@ -17,7 +17,7 @@ sections:
     content:
       title: Books
       subtitle:
-      text: 
+      text: >
       >In the New Economic Populism: How States Respond to Economic Inequality , we argue that the U.S. government’s failure to address rising income inequality should not be very surprising since federal inaction in the face of emerging economic problems is the norm in American history. The states led the fight against new economic problems during the Progressive Era and Great Depression, and it is likely that we will once again have to rely on the states to address today’s massive gap between the rich and the poor. We show that the public is cognizant of rising inequality and that this growing awareness is associated with more egalitarian political and policy changes. In contrast to the prevailing pessimism regarding income inequality, we suggest that if history is a guide these incipient state actions to reduce inequality are likely to spread to other states and even the federal government in the coming decades.
     
     ### (Oxford | Amazon)
