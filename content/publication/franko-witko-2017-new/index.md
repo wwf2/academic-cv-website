@@ -46,4 +46,18 @@ abstract: Donald Trump's 2016 victory shocked the world, but his appeals to the 
   1987 and 2010. The authors argue that, if history is a guide, increasingly egalitarian
   policies at the state level will spread to other states and, eventually, to the
   federal level, setting the stage for a more equitable future.
+
+featured: true
+
+# links:
+# - name: ""
+#   url: ""
+url_pdf: ''
+url_code: ''
+url_dataset: ''
+url_poster: ''
+url_project: ''
+url_slides: ''
+url_source: ''
+url_video: ''
 ---
