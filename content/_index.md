@@ -24,7 +24,7 @@ sections:
     design:
       columns: '2'
 
-- block: collection
+  - block: collection
     id: 
     content:
       title: Books
