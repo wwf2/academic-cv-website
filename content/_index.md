@@ -25,7 +25,7 @@ sections:
   #     columns: '2'
 
   - block: collection
-    id: 
+    id: books
     content:
       title: Books
       filters:
@@ -37,6 +37,7 @@ sections:
       view: card
  
   - block: collection
+    id: research
     content:
       title: Recent Publications
       text: 
