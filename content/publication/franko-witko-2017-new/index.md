@@ -46,7 +46,10 @@ abstract: Donald Trump's 2016 victory shocked the world, but his appeals to the 
   1987 and 2010. The authors argue that, if history is a guide, increasingly egalitarian
   policies at the state level will spread to other states and, eventually, to the
   federal level, setting the stage for a more equitable future.
-
+summary: |-
+  In the *The New Economic Populism: How States Respond to Economic Inequality* ([Oxford](https://global.oup.com/academic/product/the-new-economic-populism-9780190671013?cc=us&lang=en&) | [Amazon](https://www.amazon.com/New-Economic-Populism-Respond-Inequality/dp/0190671017)), we argue that the U.S. government’s failure to address rising income inequality should not be very surprising since federal inaction in the face of emerging economic problems is the norm in American history. The states led the fight against new economic problems during the Progressive Era and Great Depression, and it is likely that we will once again have to rely on the states to address today’s massive gap between the rich and the poor. We show that the public is cognizant of rising inequality and that this growing awareness is associated with more egalitarian political and policy changes. In contrast to the prevailing pessimism regarding income inequality, we suggest that if history is a guide these incipient state actions to reduce inequality are likely to spread to other states and even the federal government in the coming decades. 
+        
+  The New Economic Populism is [winner of the 2018 Virginia Gray Best Book Award](https://www.apsanet.org/STAFF/Staff-Page-dev/Membership-Workspace/Organized-Sections/Organized-Section-Awards/Organized-Section-Awards/Section-22#virginiagray). This award is given by the American Political Science Association State Politics and Policy Section to the best political science book published on the subject of U.S. state politics or policy in the preceding three calendar years.
 featured: true
 
 # links:
