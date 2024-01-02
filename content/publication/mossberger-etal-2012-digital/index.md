@@ -37,4 +37,6 @@ abstract: In an age when the United Nations has declared access to the Internet 
 tags:
 - geography
 - internet
+
+featured: true
 ---
