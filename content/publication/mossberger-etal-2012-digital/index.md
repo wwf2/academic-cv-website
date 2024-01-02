@@ -34,6 +34,7 @@ abstract: In an age when the United Nations has declared access to the Internet 
   Cities demonstrate the significance of place for shaping our digital future and
   the need for policies that recognize the critical role of cities in addressing both
   social inequality and opportunity.
+summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum.
 tags:
 - geography
 - internet
