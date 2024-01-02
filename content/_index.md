@@ -25,6 +25,35 @@ sections:
       columns: '2'
   
   - block: markdown
+    id: teaching
+    content:
+      title: Teaching
+      text: |-
+        **Registered students** can find course materials on [eCampus](https://ecampus.wvu.edu/).
+        
+        My **Senior Capstone Paper** (POLS 487) advisees can download a copy of the [Paper Plan and Guidelines](files/CapstoneProjectSched.pdf)
+        
+        ---
+        
+        I am an instructor for the following courses at WVU:
+
+        - State and Local Government (POLS 220)
+        - Empirical Political Analysis (POLS 300)
+        - The Politics of Economic Policy (POLS 334)
+        - Intro. to Political Research (POLS 600)
+        - Advanced Quantitative Analysis (POLS 603)
+        
+        Past courses:
+        - American Government
+        - The Politics of Economic Inequality
+        - The American Presidency
+        - Research Methods (grad)
+        - Research Design and Analysis (grad)
+        - The Legislative Process
+    design:
+      columns: '2'
+
+  - block: markdown
     id: cv
     content:
       title: Curriculum Vitae
