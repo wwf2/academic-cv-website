@@ -23,10 +23,22 @@ sections:
         The New Economic Populism is [winner of the 2018 Virginia Gray Best Book Award](https://www.apsanet.org/STAFF/Staff-Page-dev/Membership-Workspace/Organized-Sections/Organized-Section-Awards/Organized-Section-Awards/Section-22#virginiagray). This award is given by the American Political Science Association State Politics and Policy Section to the best political science book published on the subject of U.S. state politics or policy in the preceding three calendar years.
     design:
       columns: '2'
-  
+
+- block: collection
+    id: 
+    content:
+      title: Books
+      filters:
+        folders:
+          - publication
+        featured_only: true
+    design:
+      columns: '2'
+      view: card
+ 
   - block: collection
     content:
-      title: Publications
+      title: Recent Publications
       text: 
       filters:
         folders:
