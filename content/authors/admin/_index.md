@@ -118,5 +118,5 @@ social:
 highlight_name: true
 ---
 
-I am an associate professor in the Department of Political Science at the John D. Rockefeller IV School of Policy and Politics at West Virginia University. I study the causes and consequences of political and economic inequality in the United States. In trying to better understand the relationship between inequality and politics, my research focuses on the public’s attitudes about income inequality and redistribution, the influence of political participation bias on politics and policy, and how political decisions shape economic outcomes.
+I am an associate professor in the Department of Political Science at the John D. Rockefeller IV School of Policy and Politics at West Virginia University. I study political and economic inequality and class politics in the United States. In trying to better understand the relationships among class, inequality, and politics, my research focuses on the public’s attitudes about income inequality and redistribution, the influence of participation bias on political outcomes, how political decisions shape the income distribution, and the role of class identity in American politics. 
 {style="text-align: justify;"}
