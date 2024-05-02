@@ -73,6 +73,12 @@ projects:
 #   E.g. `slides: "example"` references `content/slides/example/index.md`.
 #   Otherwise, set `slides: ""`.
 slides: example
+
+# disable this page.
+_build:
+ list: false
+ render: false
+
 ---
 
 {{% callout note %}}
