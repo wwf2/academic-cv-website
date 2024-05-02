@@ -12,4 +12,8 @@ view: 2
 header:
   caption: ''
   image: ''
+
+_build:
+ list: false
+ render: false
 ---
