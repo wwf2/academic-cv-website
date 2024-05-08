@@ -7,13 +7,9 @@ output:
     toc: true
     toc_float: true
     keep_md: true
-markup:
-  tableOfContents:
-    endLevel: 3
-    ordered: false
-    startLevel: 1
 ---
 
+{{< toc >}}
 
 ## R Markdown
 
