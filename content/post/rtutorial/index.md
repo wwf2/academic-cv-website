@@ -7,10 +7,9 @@ output:
     toc: true
     toc_float: true
     keep_md: true
-toc: true
 ---
 
-
+{{ .TableOfContents }}
 
 ## R Markdown
 
