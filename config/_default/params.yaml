@@ -65,7 +65,7 @@ locale:
 
 features:
   syntax_highlighter:
-    theme_light: catppuccin-latte
+    theme_light: github-light
     theme_dark: dracula
   math:
     enable: false
