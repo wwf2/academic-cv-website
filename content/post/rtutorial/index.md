@@ -28,7 +28,7 @@ markup:
 
 
 
-# Getting started with R and RStudio
+## Getting started with R and RStudio
 
 [R](https://www.r-project.org/) is the stats software we'll be using in this course. [RStudio](https://posit.co/products/open-source/rstudio/) is a user-friendly interface for R that simplifies how you interact with R. Together, the software will allow you to manage data, conduct statistical analyses, create high-quality graphics, automate your research, and make your work reproducible, just to name a few features. 
 
@@ -59,7 +59,7 @@ Keep in mind that your interface could look a little different depending on the 
   + Help. You can view help files here after you use the `help()` command. 
 
 
-## Let's run some code
+### Let's run some code
 
 The first thing we'll do to get started is open a new R script file. Here's where to create a new script:
 
@@ -187,12 +187,12 @@ sd(mynums)
 In the above example, we use the built in functions `sum` and `mean` to easily get the sum and average of the list of numbers included in the `mynums` object we created earlier. We also included examples of some other commonly used functions. Head to this post on [Basic Functions in R](https://www.r-bloggers.com/2021/04/basic-functions-in-r/) for more details on functions in R.
 
 
-## Using comments in your script file
+### Using comments in your script file
 
 You may have noticed the `#` symbol included in the script file commands that describe the purpose of each line of code. R will ignore anything your write after the `#`. This is how we can add comments to our script files, which will be very important once you start to work on larger projects. Consistently using comments in your code will help serve as a reference for why you did what you did in your script file. It will also help other researchers using your code to understand the logic behind your coding approach. 
 
 
-## Now let's try with a dataset
+### Now let's try with a dataset
 
 In the above examples we used some very simple examples to get us started with running code and using functions in R. Of course, the series of numbers we used were just data we made up. Now, let's use some real data and start learning the basics of analysis with R. 
 
@@ -313,7 +313,7 @@ In this figure we also included the `geom_smooth()` option. This gives the estim
 
 
 
-# Helpful links
+## Helpful links
 
 1. [Quick-R](https://www.statmethods.net/r-tutorial/index.html)
 
