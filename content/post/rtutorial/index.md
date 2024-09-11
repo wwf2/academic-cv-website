@@ -2,30 +2,10 @@
 title: "R/RStudio tutorial"
 author: "William W. Franko"
 date: "2024-05-08"
-markup:
-  highlight:
-    anchorLineNos: false
-    codeFences: true
-    guessSyntax: false
-    hl_Lines: ""
-    hl_inline: false
-    lineAnchors: ""
-    lineNoStart: 1
-    lineNos: table
-    lineNumbersInTable: true
-    noClasses: true
-    noHl: false
-    style: pygments
-    tabWidth: 4
-  tableOfContents:
-    endLevel: 3
-    ordered: false
-    startLevel: 1
 ---
 
 
 {{< toc >}}
-
 
 
 ## Getting started with R and RStudio
@@ -287,7 +267,7 @@ ggplot(states, mapping = aes(x = vep20.turnout)) +
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](Rtutorial_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+![](Rtutorial_files/figure-html/hist-to-1.png)<!-- -->
 
 
 Now let's plot a relationship. As an example, we might be interested in whether state voter turnout is related to state educational attainment. The `hs.or.more` variable is the percentage of those over 25 years of age who have earned at least a high school degree.
