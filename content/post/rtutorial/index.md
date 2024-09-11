@@ -38,14 +38,12 @@ Once you've installed both programs you can launch RStudio like you would any ot
 
 Below is a screenshot of the RStudio interface with descriptive labels for each of the four panes. 
 
-$~$
 
 <div class="figure">
 <img src="rstudio-panes-labeled.jpeg" alt="The RStudio interface with labels" width="80%" />
 <p class="caption">The RStudio interface with labels</p>
 </div>
 
-$~$
 
 Keep in mind that your interface could look a little different depending on the version you’re working with and any custom changes you make. You’ll become more familiar with why each feature is important, but for now here’s a quick rundown:
 
@@ -65,27 +63,23 @@ Keep in mind that your interface could look a little different depending on the 
 
 The first thing we'll do to get started is open a new R script file. Here's where to create a new script:
 
-$~$
 
 <div class="figure">
 <img src="new-script-file.png" alt="Start a new script file" width="80%" />
 <p class="caption">Start a new script file</p>
 </div>
 
-$~$
 
 After you have the new untitled blank file, save it to your computer. Make sure you note where it's being saved so you can find it later. 
 
 We'll start with a very basic command where we do some simple addition. Just type the following four numbers into your script: `5 + 20 + 16 + 8`. Then, select the line you want to execute and click on Run.
 
-$~$
 
 <div class="figure">
 <img src="run-file.png" alt="Run your code" width="80%" />
 <p class="caption">Run your code</p>
 </div>
 
-$~$
 
 Here's what the code should look like, along with the result.
 
@@ -270,14 +264,12 @@ View(nes)
 After using the `View()` function, you should have a new tab that includes the spreadsheet-style data viewer. It's important to note the structure of the dataframe. In the screenshot it's annotated to show that our data should always be organized so that our columns are variables and rows are our observations. This will be a particularly useful rule to follow if you are collecting or using data that are not already in R data format.
 
 
-$~$
 
 <div class="figure">
 <img src="data-viewer.png" alt="Data viewer" width="80%" />
 <p class="caption">Data viewer</p>
 </div>
 
-$~$
 
 
 
