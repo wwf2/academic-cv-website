@@ -5,7 +5,7 @@ authors:
 - William W. Franko
 - Robert J. McGrath
 date: Forthcoming-01-01
-publishDate: '2025-12-01'
+publishDate: '2025-09-11T16:08:14.517708Z'
 publication_types:
 - article-journal
 publication: '*Journal of Policy Analysis and Management*'
