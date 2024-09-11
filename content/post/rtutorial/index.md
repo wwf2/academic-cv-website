@@ -2,11 +2,6 @@
 title: "R/RStudio tutorial"
 author: "William W. Franko"
 date: "2024-05-08"
-output:
-  html_document:
-    toc: true
-    toc_float: true
-    keep_md: true
 markup:
   highlight:
     anchorLineNos: false
@@ -16,7 +11,7 @@ markup:
     hl_inline: false
     lineAnchors: ""
     lineNoStart: 1
-    linenos: table
+    lineNos: table
     lineNumbersInTable: true
     noClasses: true
     noHl: false
