@@ -16,12 +16,16 @@ markup:
     hl_inline: false
     lineAnchors: ""
     lineNoStart: 1
-    lineNos: false
+    lineNos: table
     lineNumbersInTable: true
     noClasses: true
     noHl: false
     style: catppuccin-latte
     tabWidth: 4
+  tableOfContents:
+    endLevel: 3
+    ordered: false
+    startLevel: 2
 ---
 
 
