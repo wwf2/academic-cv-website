@@ -47,8 +47,6 @@ taxonomies:
   author: authors
 markup:
   _merge: deep
-  highlight:
-    linenos = true
 related:
   threshold: 80
   includeNewer: true

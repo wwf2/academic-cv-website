@@ -15,7 +15,7 @@ markup:
     lineNumbersInTable: true
     noClasses: true
     noHl: false
-    style: catppuccin-latte
+    style: pygments
     tabWidth: 4
   tableOfContents:
     endLevel: 3
