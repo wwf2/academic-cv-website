@@ -4,8 +4,8 @@ authors:
 - Wendy Chen
 - William W. Franko
 - Robert J. McGrath
-date: '2025-12-01'
-publishDate: Forthcoming
+date: Forthcoming-01-01
+publishDate: '2025-12-01'
 publication_types:
 - article-journal
 publication: '*Journal of Policy Analysis and Management*'
