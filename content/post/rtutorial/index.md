@@ -16,7 +16,7 @@ markup:
     hl_inline: false
     lineAnchors: ""
     lineNoStart: 1
-    lineNos: table
+    linenos: table
     lineNumbersInTable: true
     noClasses: true
     noHl: false
@@ -25,7 +25,7 @@ markup:
   tableOfContents:
     endLevel: 3
     ordered: false
-    startLevel: 2
+    startLevel: 1
 ---
 
 
