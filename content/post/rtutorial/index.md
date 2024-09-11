@@ -9,6 +9,19 @@ output:
     keep_md: true
 ---
 
+{{< highlight toml >}}
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ""
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = true
+    style = "monokai"
+    tabWidth = 4
+{{< / highlight >}}
 
 {{< toc >}}
 
