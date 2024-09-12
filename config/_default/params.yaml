@@ -65,7 +65,7 @@ locale:
 
 features:
   syntax_highlighter:
-    theme_light: github-light
+    theme_light: igor
     theme_dark: dracula
   math:
     enable: false
