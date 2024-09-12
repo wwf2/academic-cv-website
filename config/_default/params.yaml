@@ -65,7 +65,7 @@ locale:
 
 features:
   syntax_highlighter:
-    theme_light: igor
+    theme_light: catppuccin-latte
     theme_dark: dracula
     enable: true
   math:
