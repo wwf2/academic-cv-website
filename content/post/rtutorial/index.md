@@ -4,6 +4,14 @@ author: "William W. Franko"
 date: "2024-05-08"
 ---
 
+<style>
+p.caption {
+  font-size: 80%;
+  font-style: italic;
+  margin-bottom: 25px;
+}
+</style>
+
 
 {{< toc >}}
 
