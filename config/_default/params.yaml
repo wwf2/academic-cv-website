@@ -65,6 +65,7 @@ locale:
 
 features:
   syntax_highlighter:
+    theme: "nord"
     theme_light: github-light
     theme_dark: dracula
   math:
