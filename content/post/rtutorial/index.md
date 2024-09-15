@@ -275,7 +275,7 @@ ggplot(states, mapping = aes(x = vep20.turnout)) +
 ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
-![](Rtutorial_files/figure-html/hist-to-1.png)<!-- -->
+![](hist-to-1.png)<!-- -->
 
 
 Now let's plot a relationship. As an example, we might be interested in whether state voter turnout is related to state educational attainment. The `hs.or.more` variable is the percentage of those over 25 years of age who have earned at least a high school degree.
@@ -293,7 +293,7 @@ ggplot(states, mapping = aes(x = hs.or.more, y = vep20.turnout)) +
 ## `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](Rtutorial_files/figure-html/scatter-eduto-1.png)<!-- -->
+![](scatter-eduto-1.png)<!-- -->
 
 
 In this figure we also included the `geom_smooth()` option. This gives the estimated linear relationship between voter turnout and education levels.
