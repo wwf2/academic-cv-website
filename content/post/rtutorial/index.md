@@ -450,6 +450,67 @@ states %>%
 ```
 
 
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Characteristic </th>
+   <th style="text-align:center;"> Statistic </th>
+   <th style="text-align:center;"> N = 50 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Percent turnout of voting eligible population in 2020 </td>
+   <td style="text-align:center;"> Mean, Median, Variance, SD /      [IQR] / [Range] </td>
+   <td style="text-align:center;"> 67.9, 68.0, 35.7, 6.0 /[64.5, 72.8] / [55.0, 80.0] </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Census region </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Northeast </td>
+   <td style="text-align:center;"> % (n) </td>
+   <td style="text-align:center;"> 18% (9) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Midwest </td>
+   <td style="text-align:center;"> % (n) </td>
+   <td style="text-align:center;"> 24% (12) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> South </td>
+   <td style="text-align:center;"> % (n) </td>
+   <td style="text-align:center;"> 32% (16) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> West </td>
+   <td style="text-align:center;"> % (n) </td>
+   <td style="text-align:center;"> 26% (13) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Cigarette tax per pack, 3 ordinal categories </td>
+   <td style="text-align:center;">  </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Low (under $1) </td>
+   <td style="text-align:center;"> % (n) </td>
+   <td style="text-align:center;"> 24% (12) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Medium ($1 - $3) </td>
+   <td style="text-align:center;"> % (n) </td>
+   <td style="text-align:center;"> 58% (29) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> High (over $3) </td>
+   <td style="text-align:center;"> % (n) </td>
+   <td style="text-align:center;"> 18% (9) </td>
+  </tr>
+</tbody>
+</table>
 
 
 In addition to getting the additional statistics we want, the code also slightly alters the stats we get for categorical variables (percentages with number of observations in parentheses). The last line adds some nice column labels. 
