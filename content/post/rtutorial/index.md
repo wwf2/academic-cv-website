@@ -2,6 +2,11 @@
 title: "R/RStudio tutorial"
 author: "William W. Franko"
 date: "2024-05-08"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    keep_md: true
 ---
 
 <style>
@@ -336,29 +341,35 @@ In the previous section we used the `glimpse()` command to get basic information
 
 The `gtsummary` package is very useful for putting together descriptive statistics, particularly for continuous level variables. It let's us customize the what we include in the descriptive statistics and the package makes it fairly easy to save the tables we create (for example, in ms word format). We'll also need to create some tabulations of our nominal and ordinal level variables. For tabulations we'll use the `questionr` package. 
 
-Let's give it a try. Similar to the other packages we've used, you'll have to install `gtsummary` and `questionr` the first time you use them We'll also be using the `RCPA3` and `tidyverse` packages. 
+Let's give it a try. Similar to the other packages we've used, you'll have to install `gtsummary` and `janitor` the first time you use them We'll also be using the `RCPA3` and `tidyverse` packages. 
 
 
 
 ``` r
 # First install packages if you haven't already.
 #install.packages("gtsummary")
-#install.packages("questionr")
+#install.packages("janitor")
 
 # Load the packages.
 library(gtsummary)
-library(questionr)
+library(janitor)
 ```
 
 ```
 ## 
-## Attaching package: 'questionr'
+## Attaching package: 'janitor'
 ```
 
 ```
-## The following objects are masked from 'package:RCPA3':
+## The following object is masked from 'package:RCPA3':
 ## 
-##     describe, freq, wtd.mean, wtd.var
+##     crosstab
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     chisq.test, fisher.test
 ```
 
 ``` r
@@ -369,7 +380,6 @@ states %>% # Dataset we want to use.
   select(vep20.turnout, region, cig.tax.3cat) %>% # Select variables we want stats for.
   tbl_summary(missing = "no") # Get the descriptive statistics.
 ```
-
 
 <table style="NAborder-bottom: 0;">
  <thead>
@@ -424,7 +434,6 @@ states %>% # Dataset we want to use.
 <sup>1</sup> Median (IQR); n (%)</td></tr></tfoot>
 </table>
 
-
 A quick note on this code. This is the first time we are using `%>%`, which is called a pipe operator in tidy data language. The idea is that it allows you to "pipe" an object forward to one or more additional functions. In the command above we start with the `states` dataset, then use `select()` to choose the variables from the `states` dataset we want to work with, and finally use the `tbl_summary()` to get our descriptive statistics. 
 
 The first thing you might notice about the output is that the `tbl_summary()` function creates a nicely formatted table by default and diplays it for you in the viewer pane. It also gives the variable labels so we have more information than just the variable names. In our table we are getting descriptive statistics for voter turnout in the states, state region, and data on cigarette tax policies.
@@ -446,9 +455,8 @@ states %>%
     ),
     missing = "no",
     ) %>%
-  add_stat_label(location = "column")
+  add_stat_label(location = "column") 
 ```
-
 
 <table>
  <thead>
@@ -516,41 +524,44 @@ states %>%
 In addition to getting the additional statistics we want, the code also slightly alters the stats we get for categorical variables (percentages with number of observations in parentheses). The last line adds some nice column labels. 
 
 
-The `tbl_summary()` command provides a number of descriptive statistics we might need for our variables, but there are limitations to the information we can get for categorical level variables. We might need, for instance, an easy way to determine the median value of an ordinal level variable. (Why can't we use the median for our nominal level variable?) Frequency tables work well for this task, and they will also be essential when analyzing some bivariate relationships. Let's create a tabulation of the `cig.tax.3cat` variable using the `freq()` function from the `questionr` package. 
+The `tbl_summary()` command provides a number of descriptive statistics we might need for our variables, but there are limitations to the information we can get for categorical level variables. We might need, for instance, an easy way to determine the median value of an ordinal level variable. (Why can't we use the median for our nominal level variable?) Frequency tables work well for this task, and they will also be essential when analyzing some bivariate relationships. Let's create a tabulation of the `cig.tax.3cat` variable using the `tabyl()` function from the `janitor` package. 
 
 
 
 ``` r
 states %>%
-  select(cig.tax.3cat) %>% 
-  questionr::freq()
+  tabyl(cig.tax.3cat)
 ```
 
 ```
-##                   n  % val%
-## Low (under $1)   12 24   24
-## Medium ($1 - $3) 29 58   58
-## High (over $3)    9 18   18
+##      cig.tax.3cat  n percent
+##    Low (under $1) 12    0.24
+##  Medium ($1 - $3) 29    0.58
+##    High (over $3)  9    0.18
 ```
 
 
-This gives us a standard tabulation, which is nice but is essentially the same information given by `tbl_summary()` with the addition of the % valid column, which is useful when we have missing data. It would be really helpful to also include cumulative percentages given that `cig.tax.3cat` is an ordinal level variable. We can also drop the % valid information since it is duplicating the other columns. This is easily done by changing a couple of options within the `freq()` function.
+This gives us a standard tabulation, which is nice but is essentially the same information given by `tbl_summary()`. The table will also include a valid percent column when your data has missing values (this variable doesn't). It would be really helpful to also have a cumulative percentage column given that `cig.tax.3cat` is an ordinal level variable. This is easily done by adding a line using `mutate()` and the `cumsum()` functions.
 
 
 
 ``` r
 states %>%
-  select(cig.tax.3cat) %>% 
-  questionr::freq(cum = TRUE, valid = FALSE)
+  tabyl(cig.tax.3cat) %>%
+  mutate(cumu_percent = cumsum(percent))
 ```
 
 ```
-##                   n  % %cum
-## Low (under $1)   12 24   24
-## Medium ($1 - $3) 29 58   82
-## High (over $3)    9 18  100
+##      cig.tax.3cat  n percent cumu_percent
+##    Low (under $1) 12    0.24         0.24
+##  Medium ($1 - $3) 29    0.58         0.82
+##    High (over $3)  9    0.18         1.00
 ```
 
+
+We use `mutate()` when we want to change or create a new variable. The `cumsum()` function just returns the cumulative sum of whatever variable we pass to it, in this case we wanted the cumulative sum of the percentage column. 
+
+Now that we have the cumulative percentage, we know that the "Medium" category is the median value of the cigarette tax variable. (Remember, for the median value think 50th percentile.)
 
 For some data, it can also be useful to give examples of which observations have high values and which have low values. For instance, we might be interested in which states have the highest and lowest levels of voter turnout. Here is one of many ways to accomplish this using `arrange()`.
 
@@ -627,41 +638,20 @@ Since we already know how to create frequency tables, we'll use these tables for
 ``` r
 # Save frequency table as an object called "tabcig".
 tabcig <- states %>%
-  select(cig.tax.3cat) %>% 
-  questionr::freq() %>%
-  rownames_to_column() # For plotting the category labels.
+  tabyl(cig.tax.3cat) 
   
 # Use the object for the bar plot.
-fig.bar <- ggplot(tabcig, mapping = aes(x = rowname, y = `%`)) +
-  geom_col()
-fig.bar 
-```
-
-![](Rtutorial_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
-
-
-This plot could work, but notice how the categories of our variable are out of order. Here's a quick fix. 
-
-
-
-``` r
-# Reorder the factors.
-tabcig <- tabcig %>%
-  mutate(rowname = factor(rowname, levels = rowname))
-  
-# Plot with labels.
-fig.bar <- ggplot(tabcig, mapping = aes(x = rowname, y = `%`)) +
+fig.bar <- ggplot(tabcig, mapping = aes(x = cig.tax.3cat, y = percent)) +
   geom_col() +
   labs(x = "State cigarette tax policies",
        y = "Percent")
 fig.bar 
 ```
 
-![](Rtutorial_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![](Rtutorial_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
 
-Now we have the categories in the correct order and added some more descriptive labels. 
-
+Plotting our variables is a useful way of visualizing the properties of the data in addition to using descriptive statistics. 
 
 
 
