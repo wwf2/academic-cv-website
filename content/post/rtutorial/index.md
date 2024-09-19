@@ -371,9 +371,59 @@ states %>% # Dataset we want to use.
 ```
 
 
-```{=html}
-<div class="tabwid"><style>.cl-67705774{}.cl-676a7e12{font-family:'Helvetica';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-676a7e26{font-family:'Helvetica';font-size:6.6pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;bottom:3.3pt;}.cl-676a7e27{font-family:'Helvetica';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-676dafba{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-676dafbb{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:2pt;padding-top:2pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-676dafc4{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-676dafc5{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-676dafc6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:15pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-676dafce{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-676ddaa8{width:3.759in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-676ddaa9{width:1.406in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-676ddaaa{width:3.759in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-676ddab2{width:1.406in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-676ddab3{width:3.759in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-676ddab4{width:1.406in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-676ddabc{width:3.759in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-676ddabd{width:1.406in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-676ddabe{width:3.759in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-676ddac6{width:1.406in;background-color:transparent;vertical-align: top;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-676ddac7{width:3.759in;background-color:transparent;vertical-align: top;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-676ddac8{width:1.406in;background-color:transparent;vertical-align: top;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-676ddad0{width:3.759in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-676ddad1{width:1.406in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(255, 255, 255, 0.00);border-top: 0 solid rgba(255, 255, 255, 0.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing='true' class='cl-67705774'><thead><tr style="overflow-wrap:break-word;"><th class="cl-676ddaa8"><p class="cl-676dafba"><span class="cl-676a7e12">Characteristic</span></p></th><th class="cl-676ddaa9"><p class="cl-676dafbb"><span class="cl-676a7e12">N = 50</span><span class="cl-676a7e26">1</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-676ddaaa"><p class="cl-676dafc4"><span class="cl-676a7e27">Percent turnout of voting eligible population in 2020</span></p></td><td class="cl-676ddab2"><p class="cl-676dafc5"><span class="cl-676a7e27">68.0 (64.5, 72.8)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-676ddab3"><p class="cl-676dafc4"><span class="cl-676a7e27">Census region</span></p></td><td class="cl-676ddab4"><p class="cl-676dafc5"><span class="cl-676a7e27"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-676ddabc"><p class="cl-676dafc6"><span class="cl-676a7e27">Northeast</span></p></td><td class="cl-676ddabd"><p class="cl-676dafc5"><span class="cl-676a7e27">9 (18%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-676ddabc"><p class="cl-676dafc6"><span class="cl-676a7e27">Midwest</span></p></td><td class="cl-676ddabd"><p class="cl-676dafc5"><span class="cl-676a7e27">12 (24%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-676ddabc"><p class="cl-676dafc6"><span class="cl-676a7e27">South</span></p></td><td class="cl-676ddabd"><p class="cl-676dafc5"><span class="cl-676a7e27">16 (32%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-676ddabc"><p class="cl-676dafc6"><span class="cl-676a7e27">West</span></p></td><td class="cl-676ddabd"><p class="cl-676dafc5"><span class="cl-676a7e27">13 (26%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-676ddab3"><p class="cl-676dafc4"><span class="cl-676a7e27">Cigarette tax per pack, 3 ordinal categories</span></p></td><td class="cl-676ddab4"><p class="cl-676dafc5"><span class="cl-676a7e27"></span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-676ddabe"><p class="cl-676dafc6"><span class="cl-676a7e27">Low (under $1)</span></p></td><td class="cl-676ddac6"><p class="cl-676dafc5"><span class="cl-676a7e27">12 (24%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-676ddabe"><p class="cl-676dafc6"><span class="cl-676a7e27">Medium ($1 - $3)</span></p></td><td class="cl-676ddac6"><p class="cl-676dafc5"><span class="cl-676a7e27">29 (58%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-676ddac7"><p class="cl-676dafc6"><span class="cl-676a7e27">High (over $3)</span></p></td><td class="cl-676ddac8"><p class="cl-676dafc5"><span class="cl-676a7e27">9 (18%)</span></p></td></tr></tbody><tfoot><tr style="overflow-wrap:break-word;"><td  colspan="2"class="cl-676ddad0"><p class="cl-676dafce"><span class="cl-676a7e26">1</span><span class="cl-676a7e27">Median (IQR); n (%)</span></p></td></tr></tfoot></table></div>
-```
+<table style="NAborder-bottom: 0;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Characteristic </th>
+   <th style="text-align:center;"> N = 50 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Percent turnout of voting eligible population in 2020 </td>
+   <td style="text-align:center;"> 68.0 (64.5, 72.8) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Census region </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Northeast </td>
+   <td style="text-align:center;"> 9 (18%) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Midwest </td>
+   <td style="text-align:center;"> 12 (24%) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> South </td>
+   <td style="text-align:center;"> 16 (32%) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> West </td>
+   <td style="text-align:center;"> 13 (26%) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Cigarette tax per pack, 3 ordinal categories </td>
+   <td style="text-align:center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Low (under $1) </td>
+   <td style="text-align:center;"> 12 (24%) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Medium ($1 - $3) </td>
+   <td style="text-align:center;"> 29 (58%) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> High (over $3) </td>
+   <td style="text-align:center;"> 9 (18%) </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup>1</sup> Median (IQR); n (%)</td></tr></tfoot>
+</table>
+
 
 A quick note on this code. This is the first time we are using `%>%`, which is called a pipe operator in tidy data language. The idea is that it allows you to "pipe" an object forward to one or more additional functions. In the command above we start with the `states` dataset, then use `select()` to choose the variables from the `states` dataset we want to work with, and finally use the `tbl_summary()` to get our descriptive statistics. 
 
