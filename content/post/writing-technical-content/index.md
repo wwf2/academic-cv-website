@@ -5,7 +5,10 @@ math: true
 image:
   placement: 2
   caption: 'Image credit: [**John Moeses Bauan**](https://unsplash.com/photos/OGZtQF8iC0g)'
-active: false
+# disable this page.
+_build:
+ list: false
+ render: false
 ---
 
 Hugo Blox Builder is designed to give technical content creators a seamless experience. You can focus on the content and Wowchemy handles the rest.
