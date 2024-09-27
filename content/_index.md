@@ -57,7 +57,9 @@ sections:
       text: |-
         **Registered students** can find course materials on [eCampus](https://ecampus.wvu.edu/).
         
-        My **Senior Capstone Paper** (POLS 487) advisees can download a copy of the [Paper Plan and Guidelines](uploads/CapstoneProjectSched.pdf)
+        [R/RStudio for Political Science tutorial](https://www.williamfranko.com/post/rtutorial/) for my POLS 300 students.
+
+        My **Senior Capstone Paper** (POLS 487) advisees can download a copy of the [Paper Plan and Guidelines](uploads/CapstoneProjectSched.pdf).
         
         ---
         
