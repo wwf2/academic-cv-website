@@ -1,12 +1,7 @@
 ---
 title: "R/RStudio tutorial"
 author: "William W. Franko"
-date: "2024-05-08"
-output:
-  html_document:
-    toc: true
-    toc_float: true
-    keep_md: true
+date: "2024-09-08"
 ---
 
 <style>
@@ -18,7 +13,6 @@ p.caption {
 </style>
 
 
-{{< toc >}}
 
 
 ## Getting started with R and RStudio
