@@ -14,7 +14,7 @@ p.caption {
 </style>
 
 
-{{< toc mobile_only=false is_open=true >}}
+{{< toc >}}
 
 
 ## Getting started with R and RStudio
