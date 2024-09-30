@@ -2,6 +2,7 @@
 title: "R/RStudio tutorial"
 author: "William W. Franko"
 date: "2024-09-08"
+toc: true
 ---
 
 <style>
