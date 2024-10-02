@@ -55,8 +55,6 @@ sections:
     content:
       title: Teaching
       text: |-
-        {{< cite page="/post/rtutorial" view="compact" >}}
-
         **Registered students** can find course materials on [eCampus](https://ecampus.wvu.edu/). 
         
         [R/RStudio for Political Science tutorial]({{< ref "/post/rtutorial" >}}) for my POLS 300 students.
