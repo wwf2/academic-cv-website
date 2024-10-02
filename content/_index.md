@@ -5,7 +5,7 @@ date: 2022-10-24
 type: landing
 
 sections:
-  - block: about.biography
+  - block: resume-biography-3
     id: about
     content:
       title: Welcome
