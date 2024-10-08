@@ -650,6 +650,588 @@ fig.bar
 Plotting our variables is a useful way of visualizing the properties of the data in addition to using descriptive statistics. 
 
 
+## Data transformation
+
+Whether you’re using data you’ve collected on your own (primary data) or data collected by another researcher (secondary data), you’ll almost always have to make changes to the data. There are a few main reasons why you have to modify existing data. The first is when you have to alter variables so that they can more effectively be used to make descriptive inferences or to analyze relationships, which is sometimes referred to as “cleaning” the data. This typically needs to be done when a variable takes on values that you believe don’t belong in an analysis, like categories for missing data, or if you want to reverse the scale of a variable. Another situation you’ll encounter is when you want to combine the values of a variable into a smaller number of useful categories. A third situation is when you have several variables that tap into aspects of the same concept and you want to combine these variables into single variable that more accurately measures the concept – in other words, using several indicators to create an index. Finally, you might want to create several indicator (or dummy) variables based on the categories of a nominal or ordinal level variable.
+
+Here are some basic rules to follow when you do have to make changes to variables:
+
+1. Avoid changing the original data file.
+
+1. Examine the original data before creating a new variable.
+
+1. Check your work after making a change.
+
+1. Properly label any new variables you create.
+
+
+### Rescaling variables.
+
+One common type of transformation is changing the scale a variable is measured on. An example of this is when we have a variable that is measured in percentages that we want to be scaled to proportions (or vice versa). Another is when we need a variable measured in dollars that we would like to be scaled to thousands of dollars. 
+
+Let's see how to perform one of these transformations using the `states` dataset. We'll transform the `schools.avg.salary` variable, which is the average salary of school teachers in each state measured in dollars. It might be easier to understand the measure if we scale it so the values are represented in thousands of dollars. We'll be using the `RCPA3` and `tidyverse` packages.
+
+
+
+
+``` r
+library(RCPA3)
+library(tidyverse)
+
+states <- states %>%
+  mutate(schoolsal1k = schools.avg.salary / 1000)
+```
+
+
+This code first uses the `<-` assignment operator to replace the already existing states dataset so that the new variable we create is added to the data. The new variable is created using the mutate function, which allows us to change and add variables to a dataframe. We call the new variable `schoolsal1k` and make it equal to `schools.avg.salary` divided by 1000 using `/`. Looking at the two variables side-by-side we can see how they differ.
+
+
+
+``` r
+# Check the new variable.
+states %>%
+  select(schoolsal1k, schools.avg.salary) %>%
+  head(n=10)
+```
+
+```
+##    schoolsal1k schools.avg.salary
+## 1       48.518              48518
+## 2       67.443              67443
+## 3       47.218              47218
+## 4       48.218              48218
+## 5       77.179              77179
+## 6       46.155              46155
+## 7       72.013              72013
+## 8       59.960              59960
+## 9       49.199              49199
+## 10      54.190              54190
+```
+
+
+We only used division in this example but we could use a number of math operators depending on what we need. The table below includes a list of commonly used operators in R.
+
+
+Table: Mathematical operators in R
+
+| Operator | Description              |
+|:----------|:--------------------------|
+| +         | Addition        |
+| -         | Subtraction     |
+| *         | Multiplication  |
+| /         | Division        |
+| ^         | Exponent        |
+
+
+
+### Reversing a variable's scale
+
+There are also instances where it makes sense to reverse the scale of an existing variable in our dataset. A common reason for this kind of transformation is when a variable is coded so that higher values indicate less of the concept being measured. In these cases it's a good idea to reverse the scale to avoid confusion and issues with interpretation. For an example of this we can look at the `giffords.rank` measure in the `states` dataset, which provides a state ranking of gun control laws. If we pay close attention to the ranking and the associated `giffords.grade` variable that provides a gun law grade for each state, we'll notice that higher values of the state rankings variable indicates *worse* gun control laws.
+
+
+
+``` r
+states %>%
+  select(giffords.rank, giffords.grade) %>%
+  head(n=10)
+```
+
+```
+##    giffords.rank giffords.grade
+## 1             37              F
+## 2             42              F
+## 3             45              F
+## 4             39              F
+## 5              1              A
+## 6             15             C+
+## 7              3             A-
+## 8             11              B
+## 9             24             C-
+## 10            32              F
+```
+
+
+An easy way to reverse the scale of a numeric variable is to determine the max value of the scale and add one unit. Then, subtract the variable from the max + 1 value. Examining the gun control ranking, you'll notice that it ranks each state from 1-50. 
+
+
+
+``` r
+states <- states %>%
+  mutate(giffords.rank.rev = 51 - giffords.rank)
+
+# Check the new variable.
+states %>%
+  select(giffords.rank, giffords.rank.rev, giffords.grade) %>%
+  head(n=10)
+```
+
+```
+##    giffords.rank giffords.rank.rev giffords.grade
+## 1             37                14              F
+## 2             42                 9              F
+## 3             45                 6              F
+## 4             39                12              F
+## 5              1                50              A
+## 6             15                36             C+
+## 7              3                48             A-
+## 8             11                40              B
+## 9             24                27             C-
+## 10            32                19              F
+```
+
+
+Now our new `giffords.rank.rev` variable can be interpreted so that higher values on the ranking indicate stronger gun control laws in a state. 
+
+
+### Recoding, grouping, and combining variables
+
+The examples of transformation to this point have focused on numeric variables. When we need to make changes to non-numeric variables (think factor variables using nominal or ordinal metrics) the math operators we used earlier won't be much help. Fortunately, the `tidyverse` package includes functions that are designed to help with a much broader set of recoding needs. 
+
+We can use the `case_match()` function when we only need the values of a single variable, while the `case_when()` function will be used for creating more complex variables based on multipe existing variables. Both functions will be used with `mutate()`. 
+
+Here's an example where we want to take the values of an existing variable and collapse them into fewer categories. We'll be working with the `voting.mail` variable from the `nes` dataset. The variable measures whether respondents support or oppose voting by mail. 
+
+Let's first take a look at a tabulation of the variable.  
+
+
+
+``` r
+# Load the janitor package for the tabyl function.
+library(janitor)
+
+# Examine the variable.
+nes %>%
+  tabyl(voting.mail)
+```
+
+```
+##                  voting.mail    n     percent valid_percent
+##        1. Favor a great deal 1268 0.153140097    0.15356667
+##          2. Favor moderately  749 0.090458937    0.09071091
+##            3. Favor a little  125 0.015096618    0.01513867
+##  4. Neither favor nor oppose 3036 0.366666667    0.36768802
+##           5. Oppose a little  136 0.016425121    0.01647087
+##         6. Oppose moderately  723 0.087318841    0.08756207
+##       7. Oppose a great deal 2220 0.268115942    0.26886278
+##                         <NA>   23 0.002777778            NA
+```
+
+
+Given that most of the responses are clustered around three values, it might make sense to recode the variable into three groups: those who favor vote by mail (all three favor responses), those who neither favor nor oppose, and those who oppose (all three oppose responses). We can accomplish this using `case_match()` and create a new variable called `voting.mail.3cat`.
+
+
+
+``` r
+# Make sure you replace the nes data so your
+# new variable is saved.
+nes <- nes %>%
+  mutate(voting.mail.3cat = case_match(
+    voting.mail, # Variable values we'll be matching.
+    "1. Favor a great deal" ~ "3. Favor",
+    "2. Favor moderately" ~ "3. Favor",
+    "3. Favor a little" ~ "3. Favor",
+    "4. Neither favor nor oppose" ~ "2. Neither favor nor oppose",
+    "5. Oppose a little" ~ "1. Oppose",
+    "6. Oppose moderately" ~ "1. Oppose",
+    "7. Oppose a great deal" ~ "1. Oppose",
+    NA ~ NA_character_,
+    .ptype = factor(levels = c("1. Oppose", "2. Neither favor nor oppose", "3. Favor"), ordered = TRUE)
+  )) 
+# Examine the variable.
+nes %>%
+  tabyl(voting.mail.3cat)
+```
+
+```
+##             voting.mail.3cat    n     percent valid_percent
+##                    1. Oppose 3079 0.371859903     0.3728957
+##  2. Neither favor nor oppose 3036 0.366666667     0.3676880
+##                     3. Favor 2142 0.258695652     0.2594163
+##                         <NA>   23 0.002777778            NA
+```
+
+Note that when using `case_match()` we use the `~` symbol to indicate matches. For our first match in the above code we first listed the original value `"1. Favor a great deal"` then said we wanted all of these responses to be coded as `"Favor"`. In the last line we use the `.ptype` option to indicate that we want the new variable `voting.mail.3cat` to be stored as a factor variable. The `ordered = TRUE` portion of this line makes sure we have an ordered factor. 
+
+In the above code we were very deliberate with listing each of the seven original categories and matching them to the appropriate new values. We could also combine all the values that need to be matched to `"Favor"` in one line.
+
+
+
+``` r
+# Make sure you replace the nes data so your
+# new variable is saved.
+nes <- nes %>%
+  mutate(voting.mail.3cat.v2 = case_match(
+    voting.mail, # Variable values we'll be matching.
+    c("1. Favor a great deal",
+      "2. Favor moderately",
+      "3. Favor a little") ~ "3. Favor",
+    "4. Neither favor nor oppose" ~ "2. Neither favor nor oppose",
+    c("5. Oppose a little",
+      "6. Oppose moderately",
+      "7. Oppose a great deal") ~ "1. Oppose",
+    NA ~ NA_character_,
+    .ptype = factor(levels = c("1. Oppose", "2. Neither favor nor oppose", "3. Favor"), ordered = TRUE)
+  ))
+# Examine the variable.
+nes %>%
+  tabyl(voting.mail.3cat.v2)
+```
+
+```
+##          voting.mail.3cat.v2    n     percent valid_percent
+##                    1. Oppose 3079 0.371859903     0.3728957
+##  2. Neither favor nor oppose 3036 0.366666667     0.3676880
+##                     3. Favor 2142 0.258695652     0.2594163
+##                         <NA>   23 0.002777778            NA
+```
+
+
+The results are exactly the same. The point of this exercise is show that there are alternate approaches to accomplishing the same task, and the latter version of the code might save you some time in your own work.
+
+The next example uses `case_match()` to create a *dummy* variable, sometimes also referred to as an *indicator*, *binary*, or *dichotomous* variables. Regardless of the name used, the main characteristic of these variables as they take on only two values. 
+
+Here we'll use the `marital` variable, again from the `nes` data. It takes on six different values related to respondent marital status. Our goal is to creat a new variable `married01` that categorizes people into either a status of married or everything else. 
+
+
+
+``` r
+# Examine the variable.
+nes %>%
+  tabyl(marital)
+```
+
+```
+##                                             marital    n      percent
+##                          1. Married: spouse present 4315 0.5211352657
+##  2. Married: spouse absent {VOL - video/phone only}    7 0.0008454106
+##                                          3. Widowed  567 0.0684782609
+##                                         4. Divorced 1221 0.1474637681
+##                                        5. Separated  163 0.0196859903
+##                                    6. Never married 1951 0.2356280193
+##                                                <NA>   56 0.0067632850
+##  valid_percent
+##   0.5246838521
+##   0.0008511673
+##   0.0689445525
+##   0.1484678988
+##   0.0198200389
+##   0.2372324903
+##             NA
+```
+
+
+We can use `case_match()` as we did in the previous example and match married to a married category, then specifically match all other categories to an other category. We can also save some time by using the `.default` option from `case_match()`.
+
+
+
+``` r
+# Make sure you replace the nes data so your
+# new variable is saved.
+nes <- nes %>%
+  mutate(married01 = case_match(
+    marital, 
+    "1. Married: spouse present" ~ "Married",
+    NA ~ NA_character_,
+    .default = "Other",
+    .ptype = factor(levels = c("Married", "Other"), ordered = TRUE)
+  ))
+# Examine the variable.
+nes %>%
+  tabyl(married01)
+```
+
+```
+##  married01    n     percent valid_percent
+##    Married 4315 0.521135266     0.5246839
+##      Other 3909 0.472101449     0.4753161
+##       <NA>   56 0.006763285            NA
+```
+
+
+You should notice that we first matched the married category to a similar married category. Nothing changed here. But we then matched all `NA`s to `NA_character_`, before defaulting all other values to `"Other"`. The reason for this is that if we defaulted all other responses to `"Other"` without specifying that we want to keep `NA`s as they are, those `NA`s would have been included in the `"Other"` category. We don't know how those `NA`s should be classified since they didn't answer the question about marital status so we want to keep them as missing data.
+
+For the next example we're going to create a new variable based on the combination of two existing variables. To do this we'll have to use *logical operators*, which will allow us to put together the proper combinations into new categories. We'll again use the `nes` data, this time working with responses to questions about government action on climate change. The variable `govt.act.warming` asks respondents if the government should be doing more, less, or about the same amount to respond to rising temperatures. Another variable, `govt.act.warm.str`, records the strength of response for those who said the government should be doing more or less. These responses include "a great deal", "a moderate amount", or "a little". 
+
+
+
+``` r
+nes %>%
+  tabyl(govt.act.warming)
+```
+
+```
+##                        govt.act.warming    n    percent valid_percent
+##                 1. Should be doing more 4759 0.57475845    0.58206947
+##                 2. Should be doing less  745 0.08997585    0.09112035
+##  3. Is currently doing the right amount 2672 0.32270531    0.32681018
+##                                    <NA>  104 0.01256039            NA
+```
+
+
+``` r
+nes %>%
+  tabyl(govt.act.warm.str)
+```
+
+```
+##     govt.act.warm.str    n    percent valid_percent
+##       1. A great deal 3590 0.43357488    0.65296471
+##  2. A moderate amount 1544 0.18647343    0.28082939
+##           3. A little  364 0.04396135    0.06620589
+##                  <NA> 2782 0.33599034            NA
+```
+
+
+What we want to end up is a new 7-point scale called `govt.act.7` that ranges from those who want the government to do a great deal less about climate change to those who want to do a great deal more about climate change. Those who think that the government is doing right amount will be the middle category. For this exercise we'll be using the `case_when()` function.
+
+
+
+``` r
+nes <- nes %>%
+  mutate(govt.act.7 = case_when(
+    govt.act.warming == "1. Should be doing more" &
+      govt.act.warm.str == "1. A great deal" ~ "7. A great deal more",
+    govt.act.warming == "1. Should be doing more" &
+      govt.act.warm.str == "2. A moderate amount" ~ "6. A moderate amount more",
+    govt.act.warming == "1. Should be doing more" &
+      govt.act.warm.str == "3. A little" ~ "5. A little more",
+    govt.act.warming == "3. Is currently doing the right amount" ~ "4. Doing the right amount",
+    govt.act.warming == "2. Should be doing less" &
+      govt.act.warm.str == "3. A little" ~ "3. A little less",
+    govt.act.warming == "2. Should be doing less" &
+      govt.act.warm.str == "2. A moderate amount" ~ "2. A moderate amount less",
+    govt.act.warming == "2. Should be doing less" &
+      govt.act.warm.str == "1. A great deal" ~ "1. A great deal less",
+    govt.act.warming == NA ~ NA_character_,
+    govt.act.warm.str == NA ~ NA_character_
+  ))
+
+# Examine the new variable.
+nes %>%
+  tabyl(govt.act.7)
+```
+
+```
+##                 govt.act.7    n    percent valid_percent
+##       1. A great deal less  316 0.03816425    0.03867809
+##  2. A moderate amount less  302 0.03647343    0.03696450
+##           3. A little less  123 0.01485507    0.01505508
+##  4. Doing the right amount 2672 0.32270531    0.32705018
+##           5. A little more  241 0.02910628    0.02949816
+##  6. A moderate amount more 1242 0.15000000    0.15201958
+##       7. A great deal more 3274 0.39541063    0.40073439
+##                       <NA>  110 0.01328502            NA
+```
+
+
+To better understand the above code, let's look closely at the first categorization we make within the `case_when()` function. 
+
+
+
+``` r
+# Do not run. Portion of code from above.
+    govt.act.warming == "1. Should be doing more" &
+      govt.act.warm.str == "1. A great deal" ~ "7. A great deal more",
+```
+
+
+This code creates the new category "7. A great deal more" by grouping those who responded to the `govt.act.warming` stating that government "Should be doing more" *and* also said "A great deal" for the `govt.act.warm.str` question. Using the logical operator `==` we denote equivalence and the `&` indicates that both conditions must hold. A list of commonly used logical operators in R is provided in the table below.
+
+
+Table: Logical operators in R
+
+| Operator | Description              |
+|:----------|:--------------------------|
+| >        | Greater than             |
+| <        | Less than                |
+| >=       | Greater than or equal to |
+| <=       | Less than or equal to    |
+| ==       | Exactly equal to         |
+| !=       | Not equal to             |
+| \|       | Or                       |
+| &        | And                      |
+
+
+
+### Percentile categories from continuous measures
+
+There may also be situations where you want to create a variable that captures a set of percentiles from an existing continuous level measure. The percentiles you use will depend on what's needed from the new variable. Researchers will commonly use *quartiles* (dividing the original variable into four groups by quarters) or *quintiles* (dividing into five groups by one-fifths), but other percentile cutoffs can be used. 
+
+We've already covered how to obtain the percentiles of a variable, so one way to create a new measure along these lines would be to first get the percentile values you want to use. If we wanted to calculate quintiles we would use the 25th, 50th, and 75th percentiles as our cut points, then use the `case_when()` function to create the new variable. 
+
+Another approach is to use the `cut()` and `quantile()` functions to calculate the desired precentiles and categorize the existing continuous variable all in one or two lines of code. In addition to requiring less code, this approach is also more automated and less error prone. 
+
+Let's use the `world` dataset to demonstrate how to create an ordered quartile variable based on the values of a continuous measure. We'll use the variable named `gini.index`, which is a standard way to measure income inequality. Higher values on this measure indicate that a country has more economic inequality.  
+
+
+
+``` r
+# Use quantile to get needed percentiles.
+world %>%
+  select(gini.index) %>%
+  quantile(probs = c(0, .25, .50, .75, 1), 
+           type = 2, na.rm = TRUE)
+```
+
+```
+##   0%  25%  50%  75% 100% 
+## 24.2 32.8 36.7 42.8 63.0
+```
+
+
+With the `quantile()` function we use the `probs =` option to set the percentiles we want and set `na.rm = TRUE` so that the calculation ignores any missing data. The `type =` option sets the rules used to calculate the percentiles, including how ties are treated. There are nine different calculation types that can be used with `quantile()`, which are described in `help("quantile")`. For our purposes using `type = 2` is a good option. 
+
+Now that we have the percentiles we need to group the `gini.index` variable into quartiles, we'll use these values within the `cut()` function to appropriately group our observations into four quarters. We'll call the new variable denoting quartiles of the gini index `gini.index.4cat`. 
+
+
+
+``` r
+# Create gini index quartiles.
+world <- world %>%
+  mutate(gini.index.4cat = 
+           cut(gini.index, 
+               quantile(gini.index, 
+                        probs = c(0, .25, .50, .75, 1),
+                        type = 2, na.rm = TRUE)
+               ))
+
+# Examine the new variable.
+world %>%
+  tabyl(gini.index.4cat)
+```
+
+```
+##  gini.index.4cat  n   percent valid_percent
+##      (24.2,32.8] 39 0.2307692     0.2532468
+##      (32.8,36.7] 39 0.2307692     0.2532468
+##      (36.7,42.8] 39 0.2307692     0.2532468
+##        (42.8,63] 37 0.2189349     0.2402597
+##             <NA> 15 0.0887574            NA
+```
+
+
+
+Note that the variable created using `cut()` labels the categories of the new variable with the cut points used to determine the groupings. If you just want the categories to be simple integers from 1 to 4, you can use the `labels = FALSE` option.
+
+
+
+### Creating an index
+
+The final example of data transformation we'll look at is when we'd like to create an index. An index is created by combining multiple measures that tap into a single underlying concept. One straightforward way to create an index is to use an additive approach where multiple indicators are added together to produce a single variable. 
+
+Let's look at an example of one way to create an index of political donations using the `nes` dataset. The data include responses to three questions asking respondents whether they contributed to a candidate, political party, or any other political groups. The variables are `polact.givecand`, `polact.giveparty`, and `polact.giveoth`. If we tabulate one of the variables we'll notice that the responses are simply recording "yes" or "no" whether respondents reported giving to any of these three groups.  
+
+
+
+``` r
+nes %>%
+  tabyl(polact.givecand)
+```
+
+```
+##  polact.givecand    n   percent valid_percent
+##           1. Yes 1473 0.1778986     0.1977447
+##            2. No 5976 0.7217391     0.8022553
+##             <NA>  831 0.1003623            NA
+```
+
+
+If we want to create an additive index measuring the extent to which respondents made political contributions, our goal will be to end up with a variable ranging from 0 to 3. A 0 on this scale would indicate that the respondent reported that they didn't give to any of these three groups, while a value of 3 would indicate that they made contributions to all three groups. Values of 1 or 2 would show that respondents gave to some but not all of the groups.
+
+One way to accomplish this task would be to recode each of the three measures into numeric variables so that "yes" responses are equal to 1 and no responses are equal to 0. Then, we could create the index by adding the three numeric variables together. 
+
+A less time consuming approach is to use logical evaluations of the existing three variable to combine them into an index. The basic idea is to use the equal to expression `==` we discussed earlier to create a `TRUE` or `FALSE` logical outcome in R. Here's an example of what this looks like with the `polact.givecand` variable. 
+
+
+
+``` r
+# Summing logical outcomes.
+nes %>%
+  select(polact.givecand) %>%
+  mutate(polact.givecand.logical = (polact.givecand == "1. Yes")) %>%
+  head(n=10)
+```
+
+```
+##    polact.givecand polact.givecand.logical
+## 1            2. No                   FALSE
+## 2            2. No                   FALSE
+## 3           1. Yes                    TRUE
+## 4            2. No                   FALSE
+## 5            2. No                   FALSE
+## 6           1. Yes                    TRUE
+## 7            2. No                   FALSE
+## 8            2. No                   FALSE
+## 9            2. No                   FALSE
+## 10           2. No                   FALSE
+```
+
+
+This is useful because summing these TRUE/FALSE outcomes will add up the number of `TRUE` values. Here's a simple example of this.
+
+
+``` r
+TRUE + FALSE + TRUE
+```
+
+```
+## [1] 2
+```
+
+
+Now we can use this information to construct our index, which we'll call `pol.index`.
+
+
+
+``` r
+# Create additive index of political activities.
+nes <- nes %>%
+  mutate(pol.index = 
+           (polact.givecand == "1. Yes") +
+           (polact.giveparty == "1. Yes") +
+           (polact.giveoth == "1. Yes")
+         )
+
+# Examine the new variable.
+nes %>%
+  select(polact.givecand, polact.giveparty, 
+         polact.giveoth, pol.index) %>%
+  head(n=10)
+```
+
+```
+##    polact.givecand polact.giveparty polact.giveoth pol.index
+## 1            2. No            2. No          2. No         0
+## 2            2. No            2. No          2. No         0
+## 3           1. Yes            2. No         1. Yes         2
+## 4            2. No            2. No          2. No         0
+## 5            2. No            2. No          2. No         0
+## 6           1. Yes            2. No          2. No         1
+## 7            2. No            2. No          2. No         0
+## 8            2. No            2. No          2. No         0
+## 9            2. No            2. No          2. No         0
+## 10           2. No            2. No          2. No         0
+```
+
+
+We'll also want to double check our work and make sure that the new index takes on values that make sense given what we know about our three indicator variables. In other words, we expect `pol.index` to range from 0 to 3.
+
+
+
+``` r
+nes %>%
+  tabyl(pol.index)
+```
+
+```
+##  pol.index    n    percent valid_percent
+##          0 5759 0.69553140    0.77385112
+##          1  697 0.08417874    0.09365762
+##          2  769 0.09287440    0.10333244
+##          3  217 0.02620773    0.02915883
+##         NA  838 0.10120773            NA
+```
+
 
 
 ## Helpful links
