@@ -652,7 +652,8 @@ Plotting our variables is a useful way of visualizing the properties of the data
 
 ## Data transformation
 
-Whether you’re using data you’ve collected on your own (primary data) or data collected by another researcher (secondary data), you’ll almost always have to make changes to the data. There are a few main reasons why you have to modify existing data. The first is when you have to alter variables so that they can more effectively be used to make descriptive inferences or to analyze relationships, which is sometimes referred to as “cleaning” the data. This typically needs to be done when a variable takes on values that you believe don’t belong in an analysis, like categories for missing data, or if you want to reverse the scale of a variable. Another situation you’ll encounter is when you want to combine the values of a variable into a smaller number of useful categories. A third situation is when you have several variables that tap into aspects of the same concept and you want to combine these variables into single variable that more accurately measures the concept – in other words, using several indicators to create an index. Finally, you might want to create several indicator (or dummy) variables based on the categories of a nominal or ordinal level variable.
+Whether you’re using data you’ve collected on your own (primary data) or data collected by another researcher (secondary data), you’ll almost always have to make changes to the data. There are a few main reasons why you have to modify existing data. The first is when you have to alter variables so that they can more effectively be used to make descriptive inferences or to analyze relationships, which is sometimes referred to as “cleaning” the data. This typically needs to be done when a variable takes on values that you believe don’t belong in an analysis, like categories for missing data, or if you want to reverse the scale of a variable. 
+Another situation you’ll encounter is when you want to combine the values of a variable into a smaller number of useful categories. A third scenario is when you have several variables that tap into aspects of the same concept and you want to combine these variables into single variable that more accurately measures the concept. In other words, using several indicators to create an index. Finally, you might want to create several indicator (or dummy) variables based on the categories of a nominal or ordinal level variable.
 
 Here are some basic rules to follow when you do have to make changes to variables:
 
@@ -665,7 +666,7 @@ Here are some basic rules to follow when you do have to make changes to variable
 1. Properly label any new variables you create.
 
 
-### Rescaling variables.
+### Rescaling variables
 
 One common type of transformation is changing the scale a variable is measured on. An example of this is when we have a variable that is measured in percentages that we want to be scaled to proportions (or vice versa). Another is when we need a variable measured in dollars that we would like to be scaled to thousands of dollars. 
 
@@ -751,7 +752,7 @@ states %>%
 ```
 
 
-An easy way to reverse the scale of a numeric variable is to determine the max value of the scale and add one unit. Then, subtract the variable from the max + 1 value. Examining the gun control ranking, you'll notice that it ranks each state from 1-50. 
+An easy way to reverse the scale of a numeric variable is to determine the max value of the scale and add one unit. Then, subtract the variable from the max + 1 value. Examining the gun control ranking, you'll notice that it ranks each state from 1-50, so we'll subtract the variable from 51 (50 + 1).
 
 
 
@@ -1024,18 +1025,9 @@ nes %>%
 ```
 
 
-To better understand the above code, let's look closely at the first categorization we make within the `case_when()` function. 
+To better understand the above code, let's look closely at the first categorization we make within the `case_when()` function. The first part of the code `govt.act.warming == "1. Should be doing more" &`{.R} looks for those who responded to the `govt.act.warming` question by stating that government "Should be doing more", *and* (indicated by `&`) then also matches those who said "A great deal" for the `govt.act.warm.str` question with `govt.act.warm.str == "1. A great deal"`{.R}. Finally, the code `~ "7. A great deal more"`{.R} indicates that we want any respondents who match both conditions to be grouped into our new category "7. A great deal more".
 
-
-
-``` r
-# Do not run. Portion of code from above.
-    govt.act.warming == "1. Should be doing more" &
-      govt.act.warm.str == "1. A great deal" ~ "7. A great deal more",
-```
-
-
-This code creates the new category "7. A great deal more" by grouping those who responded to the `govt.act.warming` stating that government "Should be doing more" *and* also said "A great deal" for the `govt.act.warm.str` question. Using the logical operator `==` we denote equivalence and the `&` indicates that both conditions must hold. A list of commonly used logical operators in R is provided in the table below.
+Using the logical operator `==` we denote equivalence and the `&` indicates that both conditions must hold. A list of commonly used logical operators in R is provided in the table below.
 
 
 Table: Logical operators in R
@@ -1234,6 +1226,220 @@ nes %>%
 
 
 
+## Bivariate hypothesis testing
+
+This section gives some basic examples of bivariate hypothesis tests. These analyses won't be able to help us with controlling for potentially confounding variables since, by definition, these tests only include two variables. They will, however, help us answer the question of whether there is covariation between X and Y. Additionally, these tests will help us better understand the logic of hypothesis testing and also serve as the foundation for more advanced kinds of analyses. 
+
+It's important to keep in mind that the type of bivariate hypothesis test you use will depend on the measurement metrics of your independent and dependent variables. The table below includes an overview of when to use the three different tests we'll be covering: tabular analysis, difference of means, and correlation coefficients.
+
+
+Table: Choosing the right bivariate test
+
+|                        |     IV type: Categorical        |     IV type: Continuous                                            |
+|:------------------------|:----------------------------|:---------------------------------------------------------------|
+|     **DV type: Categorical**    |     Tabular Analysis       |     Categorize IV, then tabular analysis (or logit/probit)    |
+|     **DV type: Continuous**     |     Difference of Means    |     Correlation Coefficient                                   |
+
+
+### Tabular analysis
+
+We'll start with an example of a tabular analysis. This means both the independent and dependent variable will have to be categorical measures. The `nes` dataset includes the variable `climate.import`, which measures how important climate change is to the respondents. Let's examine whether party identity, `partyid3`, is associated with climate attitudes. It makes sense to set up our analysis so that `climate.import` is our dependent variable and `partyid3` is the independent variable. This is important given that anytime we create a tabular analysis we want the dependent variable to be in the rows of our table and the independent variable to be in the columns. 
+
+For tabular analyses we'll again be using the `tabyl()` function, which is what we've used to ask for basic tables of a single variable. If we include a second variable with `tabyl()`, it will give us a basic cross tabulation between the two variables. It's important to note that your dependent variable should be the first variable listed in `tabyl()`, and your independent variable should be the second. This will make sure that your X is in the table columns and Y is in the rows.
+
+
+
+``` r
+library(RCPA3)
+library(janitor)
+
+tab1 <- nes %>% tabyl(climate.import, partyid3,
+              show_na = FALSE)
+tab1 # Show the table results.
+```
+
+```
+##           climate.import 1. Democrat 2. Independent 3. Republican
+##  1. Not at all important          45            248           650
+##    2. A little important         130            395           605
+##  3. Moderately important         457            637           616
+##        4. Very important         769            604           270
+##   5. Extremely important        1169            624           142
+```
+
+
+This is a good start, but you'll notice that this only gives us the number of observations within each cell. What we need for a tabular analysis is the column percentages so that we can examine whether the importance of climate change systematically differs across levels of party identity. We can do this with some helper functions that come with the `janitor` package.
+
+
+
+
+``` r
+# Start with the basic results.
+tab1 %>% 
+  adorn_percentages("col") %>% # Get column percentages.
+  adorn_pct_formatting(digits = 1) %>% # Formatting
+  adorn_ns() # Include n for each cell.
+```
+
+```
+##           climate.import   1. Democrat 2. Independent 3. Republican
+##  1. Not at all important  1.8%    (45)     9.9% (248)   28.5% (650)
+##    2. A little important  5.1%   (130)    15.7% (395)   26.5% (605)
+##  3. Moderately important 17.8%   (457)    25.4% (637)   27.0% (616)
+##        4. Very important 29.9%   (769)    24.1% (604)   11.8% (270)
+##   5. Extremely important 45.5% (1,169)    24.9% (624)    6.2% (142)
+```
+
+
+Now we're able to interpret the results of the tabular analysis. If we focus on the "extremely important" category of the climate importance measure, we can see that around 46% of Democrats view climate change as extremely important, while the percentage for independents is 25% and only 6% for Republicans.
+
+Is this relationship statistically significant? We can answer this using a chi-squared test on the tabulation. 
+
+
+
+``` r
+# For chi-squared, only use basic tabulation.
+chisq.test(tab1)
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  tab1
+## X-squared = 2008.1, df = 8, p-value < 2.2e-16
+```
+
+
+The results show a very small p-value that is close to zero, suggesting that the tabular relationship between `climate.import` and `partyid3` is statistically significant.
+
+Note that the `chisq.test()` function will only work on the basic table created by `tabyl()` without any added formatting. It won't work, for example, if you try to pass a formatted table with percentages to `chisq.test()`. 
+
+
+### Difference of means
+
+A difference of means test is commonly used when you have a categorical independent variable and a continuous dependent variable. For instance, let's use the `nes` data to examine whether gender has an influence on feelings toward labor unions. The variable `gender` is categorical and `ft.unions` is a continuous feeling thermometer measure ranging from 0 to 100. Recall that with feeling thermometers higher values indicate more positive feelings about the group/person/topic being asked about.
+
+We'll be using the `rstatix` package to perform the difference of means test, so you'll have to install the package if it's the first time you're using it.
+
+
+``` r
+install.packages("rstatix")
+```
+
+
+``` r
+library(RCPA3)
+library(rstatix)
+
+tab.meandif <- nes %>%
+  t_test(ft.unions ~ gender, detailed = TRUE) 
+
+# View the results.
+tab.meandif
+```
+
+```
+## # A tibble: 1 × 17
+##   estimate estimate1 estimate2 .y.       group1  group2       n1    n2 statistic
+## *    <dbl>     <dbl>     <dbl> <chr>     <chr>   <chr>     <int> <int>     <dbl>
+## 1    -3.91      56.2      60.2 ft.unions 1. Male 2. Female  3327  3944     -6.88
+## # ℹ 8 more variables: p <dbl>, df <dbl>, conf.low <dbl>, conf.high <dbl>,
+## #   method <chr>, alternative <chr>, p.adj <dbl>, p.adj.signif <chr>
+```
+
+
+In this example we're using the `t_test()` function to conduct the difference of means test. Note that for this function you should always list the dependent variable first, then the independent variable, and they should be separated with `~`. After the comma you'll see that we include `detailed = TRUE`, which provides more information in the results than what you'll get by default. 
+
+The results will likely be difficult to read in the console, so you'll want to take a look at the table we created, `tab.meandif`. 
+
+
+
+``` r
+View(tab.meandif)
+```
+
+
+Here's a brief breakdown of the information provided in the columns we'll mainly be interested in:
+
+* estimate: The difference in means.
+
+* estimate1, estimate2: The mean values of the two groups.
+
+* .y.: The y variable used in the test.
+
+* group1, group2: The compared groups in the pairwise tests.
+
+* n, n1, n2: Sample counts.
+
+* statistic: Test statistic (t value) used to compute the p-value.
+
+* df: Degrees of freedom.
+
+* p: p-value.
+
+* conf.low, conf.high: Lower and upper bound on a confidence interval.
+
+
+In our analysis, Male is group 1 and Female group 2. Looking at the estimate results we can see that the average feelings toward labor unions for Male is 56.2 and for Female is 60.2. The mean difference is -3.91, where feelings for unions are more positive for the Female group. But is this difference statistically different from zero? The estimated p-value is very close to zero, suggesting the difference in means is statistically significant.
+
+
+### Correlation coefficient
+
+Finally, a correlation coefficient is a useful bivariate hypothesis test when we are analyzing two continuous level variables. In the `world` dataset we can test whether perceptions of corruption in each country are influenced by levels of economic freedom. The variable `corrupt.perception` is a corruption perception index where higher values (unexpectedly) indicate *less* corruption. For the `econ.freedom` measure, higher values mean more economic freedom.  
+
+To calculate the correlation coefficient between these two variables we'll again be using the `rstatix` package.
+
+
+
+``` r
+library(rstatix)
+
+tab.corr <- world %>% 
+  cor_test(corrupt.perception, econ.freedom)
+
+# Examine the results.
+tab.corr
+```
+
+```
+## # A tibble: 1 × 8
+##   var1               var2       cor statistic        p conf.low conf.high method
+##   <chr>              <chr>    <dbl>     <dbl>    <dbl>    <dbl>     <dbl> <chr> 
+## 1 corrupt.perception econ.fr…  0.75      14.0 1.38e-29    0.667     0.807 Pears…
+```
+
+
+The results returned by the `cor_test()` function give us everything we need to assess the relationship between our variables. Unlike the tabular analysis and difference of means test, the correlation coefficient doesn't make a distinction between independent and dependent variables, so the estimated correlation will be the same regardless of how you list the variables. 
+
+In the output, we can see that the estimated correlation between corruption perceptions and economic freedom is 0.75, indicating a positive relationship. This suggests that countries with more economic freedom are also perceived to be "cleaner," or have less corruption. The very small p-value also tells us that the estimated correlation is statistically significant. 
+
+Keep in mind that it's possible to get correlation estimates for more than two variables using the `cor_test()` function. Also, the `rstatix` package includes a `cor_mat()` function that will produce a correlation matrix, which can be useful if you're examining the correlations among several variables. 
+
+As an example, we can get a correlation matrix for corruption perceptions, economic freedom, and corporate tax rates using the following code.
+
+
+
+``` r
+# Get a correlation matrix.
+# Note that this function only works with three or more variables.
+world %>% 
+  cor_mat(corrupt.perception, econ.freedom, corp.tax.rate) %>%
+  pull_lower_triangle() # only include lower part of the matrix.
+```
+
+```
+##              rowname corrupt.perception econ.freedom corp.tax.rate
+## 1 corrupt.perception                                              
+## 2       econ.freedom               0.75                           
+## 3      corp.tax.rate              -0.28        -0.43
+```
+
+
+You'll notice that the correlation matrix only includes correlation coefficients, so you'll need to use `cor_test()` if you need p-values for the estimates. 
+
+
+
 ## Helpful links
 
 1. [Quick-R](https://www.statmethods.net/r-tutorial/index.html)
@@ -1243,7 +1449,5 @@ nes %>%
 1. [Introduction to ggplot2](https://ggplot2.tidyverse.org/articles/ggplot2.html)
 
 1. Google. You are definitely not the only person looking for answers to questions you have about R. Many of these questions are asked on sites like Stack Overflow, Stack Exchange, Posit Community, and Reddit, where more experienced R users often give useful responses.
-
-
 
 
