@@ -47,6 +47,14 @@ Keep in mind that your interface could look a little different depending on the 
   + Plots. After you create figures you'll be able to view them here.
   + Help. You can view help files here after you use the `help()` command. 
 
+One more thing before we get started. Some installations of RStudio will default to a setting that will always load what is called a workspace every time you start RStudio. This can be useful in some instances, but it's much more likely that this setting will cause problems down the road. Change this now! In the RStudio toolbar, go to Tools > Global Options. In the window that pops up, *uncheck* "Restore RData into workspace at startup" and set "Save workspace to RData on exit" to *never*. Here's what your settings should look like:
+
+
+<div class="figure">
+<img src="workspacewindow.png" alt="Here's what your workspace settings should look like" width="50%" />
+<p class="caption">Here's what your workspace settings should look like</p>
+</div>
+
 
 ### Let's run some code
 
@@ -1437,6 +1445,414 @@ world %>%
 
 
 You'll notice that the correlation matrix only includes correlation coefficients, so you'll need to use `cor_test()` if you need p-values for the estimates. 
+
+
+### Visualizing relationships
+
+A nice complement to the methods we used to conduct bivariate hypothesis tests is to visually present the relationship between your two variables of interest. Just like hypothesis testing, the type of plot needed to visualize relationships will depend on the measurement metrics of the variables. We'll use the same examples from above to see how we can produce nice plots that can supplement our hypothesis tests.
+
+Returning to our examination between `climate.import` and `partyid3`, recall that both variables are categorical measures. In this case, it's often useful to create a bar plot of the two categorical variables for presentation.
+
+We already created a tabular analysis between `climate.import` and `partyid3`, so all we have to do now get those results into a format that's suitable for plotting. For the bar plot we typically only need percentages for each group of the independent variable, meaning we don't need the raw counts from the tabulation we created earlier.
+
+
+
+``` r
+library(RCPA3)
+library(tidyverse)
+library(janitor)
+
+tab1.gg <- nes %>% tabyl(climate.import, partyid3,
+              show_na = FALSE) %>%
+  adorn_percentages("col") # Get column percentages.
+
+tab1.gg # Show the table results.
+```
+
+```
+##           climate.import 1. Democrat 2. Independent 3. Republican
+##  1. Not at all important  0.01750973     0.09888357    0.28471310
+##    2. A little important  0.05058366     0.15749601    0.26500219
+##  3. Moderately important  0.17782101     0.25398724    0.26982041
+##        4. Very important  0.29922179     0.24082935    0.11826544
+##   5. Extremely important  0.45486381     0.24880383    0.06219886
+```
+
+
+These are the values needed for the plot, but we need to make one additional change to the dataframe we created. Because we're using `ggplot()` to create our figures, the data needs to be in what is referred to as "long" format. All this means is rearranging the data a little, which is made fairly easy if we use the `pivot_longer()` function.
+
+
+
+``` r
+# Transform data to long.
+tab1.gg <- pivot_longer(tab1.gg, 
+                          cols = !climate.import,
+                          names_to = "pid")
+
+tab1.gg # Show the table results.
+```
+
+```
+## # A tibble: 15 × 3
+##    climate.import          pid             value
+##    <ord>                   <chr>           <dbl>
+##  1 1. Not at all important 1. Democrat    0.0175
+##  2 1. Not at all important 2. Independent 0.0989
+##  3 1. Not at all important 3. Republican  0.285 
+##  4 2. A little important   1. Democrat    0.0506
+##  5 2. A little important   2. Independent 0.157 
+##  6 2. A little important   3. Republican  0.265 
+##  7 3. Moderately important 1. Democrat    0.178 
+##  8 3. Moderately important 2. Independent 0.254 
+##  9 3. Moderately important 3. Republican  0.270 
+## 10 4. Very important       1. Democrat    0.299 
+## 11 4. Very important       2. Independent 0.241 
+## 12 4. Very important       3. Republican  0.118 
+## 13 5. Extremely important  1. Democrat    0.455 
+## 14 5. Extremely important  2. Independent 0.249 
+## 15 5. Extremely important  3. Republican  0.0622
+```
+
+
+You'll notice that this didn't change any values or categories in the data, it only restructured the dataframe to the long format. 
+
+In the `pivot_longer()` function, we used the `cols =` option to specify that we rearrange all of the column values *except* for the `climate.import` column. The exclamation point `!` indicates NOT, so `!climate.import` uses all columns that are not `climate.import`. The `names_to =` option gives a name to the new column that will include the old column names as observations.
+
+The final step before plotting is to decide which category of the dependent variable we want to focus on and include in our figure. The reason for this is that there's no simple way to plot of this information in one figure. For an ordinal dependent variable like this one, it often makes sense to select the highest value. For our example, we can use those who believe that climate change is "extremely important". Another option is to combine some of the high values into one new group and use that for plotting. For now, let's just plot the "extremely important" category. To do this, we'll create a subset of the values we have in the `tab1.gg` dataframe.
+
+
+
+``` r
+# Get subset of table for plotting.
+tab1.ggsub <- tab1.gg %>%
+  filter(climate.import == "5. Extremely important")
+
+tab1.ggsub # Show the table results.
+```
+
+```
+## # A tibble: 3 × 3
+##   climate.import         pid             value
+##   <ord>                  <chr>           <dbl>
+## 1 5. Extremely important 1. Democrat    0.455 
+## 2 5. Extremely important 2. Independent 0.249 
+## 3 5. Extremely important 3. Republican  0.0622
+```
+
+
+Now we're ready to plot our data. For this figure, our percentages for the climate importance category will go on the y-axis and the party ID categories will go on the x-axis. Note that for instances where we need a bar plot for values that don't need any additional calculations we'll be using `geom_col()` for the plot.
+
+
+
+``` r
+# Bar plot.
+plot1 <- ggplot(tab1.ggsub, aes(y = value, x = pid)) +
+  geom_col() +
+  labs(y = "Climate is extremely important", 
+       x = "Party ID")
+
+plot1 # Show the plot.
+```
+
+![](Rtutorial_files/figure-html/unnamed-chunk-44-1.png)<!-- -->
+
+
+As noted above, selecting one of the categories of the dependent variable to work with simplifies our visualization. We could, however, choose to plot all of the information we have about the relationship between party ID and importance of climate change. One way to do this would be to get separate plots for each of the five categories from our dependent variable `climate.import`. A straightforward approach for this example would be to use facets. 
+
+
+
+``` r
+# Bar plot.
+plot1b <- ggplot(tab1.gg, aes(y = value, x = pid)) +
+  geom_col() +
+  labs(y = "Climate is extremely important", 
+       x = "Party ID") +
+  facet_wrap(vars(climate.import), ncol = 2)
+
+plot1b # Show the plot.
+```
+
+![](Rtutorial_files/figure-html/unnamed-chunk-45-1.png)<!-- -->
+
+
+This plot offers more detail regarding the relationship between our two variables. It's up to you as a researcher to decide what works best for your analysis.
+
+In our example of analyzing the relationship between continuous dependent variable and categorical independent variable, we examined gender and feelings toward labor unions. There are several options for visualizing relationships like this. We'll cover two common approaches. The first is again using the bar plot. In this case, all we need is our bars to represent the average feeling thermometer rating `ft.unions` for unions across the female and male categories of `gender`.
+
+
+
+``` r
+# Example using a bar plot.
+nes %>%
+  drop_na(ft.unions, gender) %>%
+  ggplot(aes(y = ft.unions, x = gender)) + 
+  geom_bar(stat = "summary", fun = "mean") 
+```
+
+![](Rtutorial_files/figure-html/unnamed-chunk-46-1.png)<!-- -->
+
+
+Notice that the figure is created using the `geom_bar()` plot, which does the work of calculating the mean of `ft.unions` by categories of `gender` by specifying the options `stat = "summary", fun = "mean"`. 
+
+
+Another way to graphically present the relationship between our `ft.unions` and `gender` variables is to use a box plot, which is sometimes called a box and whisker plot. 
+
+
+
+``` r
+# Example using a box plot.
+nes %>%
+  drop_na(ft.unions, gender) %>%
+  ggplot(aes(y = ft.unions, x = gender)) + 
+  geom_boxplot()
+```
+
+![](Rtutorial_files/figure-html/unnamed-chunk-47-1.png)<!-- -->
+
+
+A nice feature of the box plot is that it gives us multiple pieces of information about our data. First, the line running through the middle of each box represents the median value. The outer edges of the boxes indicate the 25th and 75th percentile of the data. The lines extending from the boxes, or whiskers, extend to 1.5 times the 25th and 75th percentiles. Finally, any data points that fall outside of the whiskers will be plotted individually. 
+
+
+The final hypothesis test we conducted was between two continuous level variables, `corrupt.perception` and `econ.freedom`. We can use a scatter plot to visualize the relationship between these two variables.
+
+
+
+``` r
+# Scatter plot.
+world %>%
+  ggplot(aes(y = corrupt.perception, x = econ.freedom)) + 
+  geom_point()
+```
+
+![](Rtutorial_files/figure-html/unnamed-chunk-48-1.png)<!-- -->
+
+
+We can also add a linear fit line if needed. 
+
+
+
+``` r
+# Scatter plot with a linear fit line.
+world %>%
+  ggplot(aes(y = corrupt.perception, x = econ.freedom)) + 
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+![](Rtutorial_files/figure-html/unnamed-chunk-49-1.png)<!-- -->
+
+
+
+## Regression
+
+In the previous section we mentioned that while bivariate hypothesis tests provide a straightforward way of examining the relationship between two variables, the workhorse of hypothesis testing is regression analysis. Recall that the basic regression model looks this:
+
+$$
+Y_i = \hat{\alpha} + \hat{\beta_1}X_i + \hat{u}_i
+$$
+
+Where we are modeling our dependent variable $Y_i$ as a function of our independent variables. In this case, only a single independent variable $X_i$. In R, the `lm()` function allows us to fit a linear regression model. 
+
+
+### Bivariate regression
+
+To start, let's use a simple example that includes a single independent variable. We'll test a classic political science theory arguing that democratic nations are less likely than non-democratic nations to experience conflict. The `world` dataset includes the variable `peace.index`, which is a measure of how peaceful a country is. This will be our dependent variable. For our independent variable we'll use the democracy index `fh.democ.score`. 
+
+
+``` r
+library(RCPA3)
+library(tidyverse)
+library(janitor)
+# Regression analysis.
+mod1 <- lm(formula = peace.index ~ fh.democ.score, data = world)
+
+mod1 # Show regression results.
+```
+
+```
+## 
+## Call:
+## lm(formula = peace.index ~ fh.democ.score, data = world)
+## 
+## Coefficients:
+##    (Intercept)  fh.democ.score  
+##        2.32417         0.01113
+```
+
+``` r
+summary(mod1) # More detailed results.
+```
+
+```
+## 
+## Call:
+## lm(formula = peace.index ~ fh.democ.score, data = world)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.25576 -0.19896  0.04484  0.24890  0.79444 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)    2.3241670  0.0606010   38.35   <2e-16 ***
+## fh.democ.score 0.0111332  0.0009834   11.32   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.3766 on 159 degrees of freedom
+##   (8 observations deleted due to missingness)
+## Multiple R-squared:  0.4463,	Adjusted R-squared:  0.4428 
+## F-statistic: 128.2 on 1 and 159 DF,  p-value: < 2.2e-16
+```
+
+``` r
+confint(mod1) # Get confidence intervals.
+```
+
+```
+##                      2.5 %     97.5 %
+## (Intercept)    2.204480301 2.44385371
+## fh.democ.score 0.009190979 0.01307541
+```
+
+
+First, let's review what we're including in the `lm()` function for the linear regression. For `formula =` we always list the dependent variable first, then the `~` followed by our independent variables. For `data =` we list the dataset being using for our analysis. 
+
+You'll notice that just listing the object we used to store the regression results doesn't include all of the information we'll need for hypothesis testing. Instead, we'll almost always use `summary()` to get more details about our regression model and results. Importantly, `summary()` provides the coefficient estimates, standard errors, t-values, and p-values. It also uses stars `*` to indicate whether each coefficient is statistically significant at different levels. Significance at the 0.05 level is indicated by a single star, so when a coefficient has one or more stars next to it you'll know that it's statistically significant at the 0.05 level at a minimum. 
+
+The results from our example show an estimated coefficient of 0.01 for the democracy score variable `fh.democ.score`. The interpretation is that a unit increase in the democracy score leads to a 0.01 increase in a country's peacefulness. Given the very small p-value, along with the three stars next to the `fh.democ.score` coefficient, we can also say that this effect is statistically different from zero. 
+
+The last section of results includes both the R-squared and adjusted R-squared statistics. We'll almost always prefer the adjusted R-squared since it corrects for adding additional independent variables to the regression model. In the example our adjusted R-squared of 0.44 suggests that our regression model explains around 44% of the variance in our dependent variable `peace.index`.
+
+Another potentially useful function after fitting a regression model is `confint()`, which gives us confidence intervals for each coefficient in the model. By default it will give us 95% confidence intervals, but this can be changed if needed by using the `level =` option. 
+
+
+
+### Multiple regression
+
+While the regression example we covered above is a good start, one of the central features of regression analysis is that it allows us to statistically control for multiple variables when using an observational research design. Again consider the democratic peace theory. Our bivariate analysis provides support for the idea that more democratic nations are less likely to be engaged in conflict, but there are many potentially confounding factors that aren't considered in the model. One is economic conditions. Countries that are more democratic might also have stronger economies that are more closely connected to other places with strong economies. As a result, these countries tend to be more peaceful, not because of democracy but because of their economic reliance on each other. Another possible confounder is a country's social makeup. If a place has more differences that lead to biases in rights and representation, it's likely that these issues will spill over into conflict. One source of these types of disputes is ethnic fractionalization, which indicates how much ethnic diversity exists in a country.
+
+Building on the earlier regression model of peacefulness, we can incorporate measures of economic strength and ethnic diversity using measures from the `world` dataset. The variables are `gdp.percap` and `frac.eth`. To add more than one independent variable to our regression model, we only have to include the `+` sign to our regression formula to separate our measures. 
+
+
+
+``` r
+# Multiple regression analysis.
+mod2 <- lm(formula = peace.index ~ fh.democ.score + gdp.percap + frac.eth, 
+           data = world)
+
+summary(mod2) # Show results.
+```
+
+```
+## 
+## Call:
+## lm(formula = peace.index ~ fh.democ.score + gdp.percap + frac.eth, 
+##     data = world)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.20216 -0.13216  0.04874  0.24636  0.65142 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)     2.438e+00  9.948e-02  24.505  < 2e-16 ***
+## fh.democ.score  7.357e-03  1.120e-03   6.571 8.97e-10 ***
+## gdp.percap      7.721e-06  1.742e-06   4.432 1.86e-05 ***
+## frac.eth       -1.057e-01  1.281e-01  -0.825    0.411    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.3424 on 141 degrees of freedom
+##   (24 observations deleted due to missingness)
+## Multiple R-squared:  0.5037,	Adjusted R-squared:  0.4931 
+## F-statistic:  47.7 on 3 and 141 DF,  p-value: < 2.2e-16
+```
+
+
+When reviewing the results of the multiple regression model we have to keep in mind that the interpretation of the estimated coefficients differs relative to the bivariate model. For any of the independent variables in the model, we can say that a one unit increase in the variable leads to a $\hat{\beta}$ change in the dependent variable *while controlling for the effect of all other variables*. 
+
+Returning to the effect of democracy on peace, the estimated coefficient suggests that a unit increase in `fh.democ.score` leads to a 0.007 increase in `peace.index` controlling for all other variables (i.e., controlling for `gdp.percap` and `frac.eth`). Given the p-value, we can again say that this effect is statistically significant. 
+
+It's also important to note that relative to the simple bivariate model, the size of the estimated effect for `fh.democ.score` is smaller when controlling for `gdp.percap` and `frac.eth`. The coefficient in the second model is 0.007 and 0.011 in the first model. This suggests that without the control variables, the first model provides an inflated estimated effect of democracy, likely due to omitted variable bias.
+
+
+
+Although `summary()` will often give us everything we need to interpret our regression model results, it doesn't provide us with a way to easily get these results into a presentable format for a report or paper. Additionally, we will often want to present the results of several regression models side-by-side to make comparison and interpretation more straightforward. Fortunately, we can use the `stargazer` package to help with this.
+
+
+
+``` r
+#install.packages("stargazer")
+library(stargazer)
+
+stargazer(mod1, type = "text")
+```
+
+```
+## 
+## ===============================================
+##                         Dependent variable:    
+##                     ---------------------------
+##                             peace.index        
+## -----------------------------------------------
+## fh.democ.score               0.011***          
+##                               (0.001)          
+##                                                
+## Constant                     2.324***          
+##                               (0.061)          
+##                                                
+## -----------------------------------------------
+## Observations                    161            
+## R2                             0.446           
+## Adjusted R2                    0.443           
+## Residual Std. Error      0.377 (df = 159)      
+## F Statistic          128.168*** (df = 1; 159)  
+## ===============================================
+## Note:               *p<0.1; **p<0.05; ***p<0.01
+```
+
+
+In this example we use the `stargazer()` function to create a table of the bivariate regression results from earlier. You can see that get nearly the same information as `summary()` just in a nicer format. Next, we can show the results from `mod1` and `mod2` together in the same table. 
+
+
+
+``` r
+stargazer(mod1, mod2, type = "text")
+```
+
+```
+## 
+## ====================================================================
+##                                   Dependent variable:               
+##                     ------------------------------------------------
+##                                       peace.index                   
+##                               (1)                      (2)          
+## --------------------------------------------------------------------
+## fh.democ.score              0.011***                0.007***        
+##                             (0.001)                  (0.001)        
+##                                                                     
+## gdp.percap                                         0.00001***       
+##                                                     (0.00000)       
+##                                                                     
+## frac.eth                                             -0.106         
+##                                                      (0.128)        
+##                                                                     
+## Constant                    2.324***                2.438***        
+##                             (0.061)                  (0.099)        
+##                                                                     
+## --------------------------------------------------------------------
+## Observations                  161                      145          
+## R2                           0.446                    0.504         
+## Adjusted R2                  0.443                    0.493         
+## Residual Std. Error     0.377 (df = 159)        0.342 (df = 141)    
+## F Statistic         128.168*** (df = 1; 159) 47.699*** (df = 3; 141)
+## ====================================================================
+## Note:                                    *p<0.1; **p<0.05; ***p<0.01
+```
+
+
+This table makes it much easier to compare the estimated effects of democracy on peace for our two models. 
 
 
 
