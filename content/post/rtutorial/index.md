@@ -51,7 +51,7 @@ One more thing before we get started. Some installations of RStudio will default
 
 
 <div class="figure">
-<img src="workspacewindow.png" alt="Here's what your workspace settings should look like" width="50%" />
+<img src="workspacewindow.png" alt="Here's what your workspace settings should look like" width="60%" />
 <p class="caption">Here's what your workspace settings should look like</p>
 </div>
 
