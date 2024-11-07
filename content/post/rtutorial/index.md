@@ -1647,11 +1647,9 @@ world %>%
 
 In the previous section we mentioned that while bivariate hypothesis tests provide a straightforward way of examining the relationship between two variables, the workhorse of hypothesis testing is regression analysis. Recall that the basic regression model looks this:
 
-{{< math >}}
 $$
 Y_i = \hat{\alpha} + \hat{\beta_1}X_i + \hat{u}_i
 $$
-{{< /math >}}
 
 Where we are modeling our dependent variable $Y_i$ as a function of our independent variables. In this case, only a single independent variable $X_i$. In R, the `lm()` function allows us to fit a linear regression model. 
 
