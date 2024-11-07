@@ -1726,6 +1726,39 @@ The last section of results includes both the R-squared and adjusted R-squared s
 
 Another potentially useful function after fitting a regression model is `confint()`, which gives us confidence intervals for each coefficient in the model. By default it will give us 95% confidence intervals, but this can be changed if needed by using the `level =` option. 
 
+Returning to the basic regression model, we can use the variables from our example above along with the estimated coefficients to demonstrate how each component fits with our data. Recall that we can express the model as:
+
+$$
+Y_i = \hat{\alpha} + \hat{\beta_1}X_i + \hat{u}_i
+$$
+
+
+Replacing Y with our dependent variable and X with our independent variable we get:
+
+$$
+peace.index = \hat{\alpha} + \hat{\beta_1}*fh.democ.score + \hat{u}_i
+$$
+
+After fitting the model, we can also include the parameter estimates:
+
+$$
+peace.index = 2.324 + 0.011*fh.democ.score 
+$$
+
+We could now use this equation to get predicted values of our dependent variable `peace.index` by simply replacing `fh.democ.score` with a value of interest. For example, a fairly low democracy score value from the data is 28, while a value of 83 would be considered relatively high. What would we expect the peace index to be for each of these values?
+
+$$
+peace.index = 2.324 + 0.011*28 = 2.63
+$$
+
+For the high value:
+
+$$
+peace.index = 2.324 + 0.011*83 = 3.24
+$$
+
+These results should be intuitive given that the democracy score has a positive effect on the peace index. Higher democracy scores lead to higher levels of peace. 
+
 
 
 ### Multiple regression
@@ -1776,7 +1809,78 @@ Returning to the effect of democracy on peace, the estimated coefficient suggest
 
 It's also important to note that relative to the simple bivariate model, the size of the estimated effect for `fh.democ.score` is smaller when controlling for `gdp.percap` and `frac.eth`. The coefficient in the second model is 0.007 and 0.011 in the first model. This suggests that without the control variables, the first model provides an inflated estimated effect of democracy, likely due to omitted variable bias.
 
+It's also important to think about how we can assess the magnitude of the effect each of our variables has on the dependent variable. Since it's often the case that the variables we include in a regression model are measured using different metrics or scales, it isn't appropriate to simply compare the estimated coefficients. Let's make this point clear by looking at the democracy score and GDP measures.
 
+
+
+``` r
+library(gtsummary)
+
+world %>%
+  select(fh.democ.score, gdp.percap) %>%
+  tbl_summary(
+    statistic = list(
+      all_continuous() ~ "{mean}, {sd} /
+      [{p25}, {p75}] / [{min}, {max}]",
+      all_categorical() ~ "{p}% ({n})"
+    ),
+    missing = "no",
+    ) 
+```
+
+<table style="NAborder-bottom: 0;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Characteristic </th>
+   <th style="text-align:center;"> N = 169 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Freedom House rating of democracy </td>
+   <td style="text-align:center;"> 55, 30 /[28, 83] / [1, 100] </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Gross domestic product per capita (in U.S. dollars) </td>
+   <td style="text-align:center;"> 20,217, 20,960 /[4,389, 29,799] / [752, 114,482] </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup>1</sup> Mean, SD /       [IQR] / [Range]</td></tr></tfoot>
+</table>
+
+Our descriptive statistics show us that the democracy score ranges from 1 to 100, while per capita GDP ranges from $752 to $114,482. Thinking about how to interpret our regression coefficients, a one unit increase in the democracy score is very different from a one unit increase in per capita GDP. 
+
+Because of this, we have to find a reasonable way to compare the estimated effects from our regression models. This is where the standard deviation can be helpful. We can calculate how a standard deviation change in each independent variable of interest effects the dependent variable. From our summary table, we can see that the sd of `fh.democ.score` is 30 and the sd of `gdp.percap` is 20,960. 
+
+
+
+``` r
+# sd change in fh.democ.score.
+0.007 * 30
+```
+
+```
+## [1] 0.21
+```
+
+
+``` r
+# sd change in gdp.percap.
+0.00001 * 20960
+```
+
+```
+## [1] 0.2096
+```
+
+
+We can interpret these results as: a standard deviation change in democracy score leads to a 0.21 change in the peace index. Similarly, a a standard deviation change in per capita GDP leads to a 0.2096 change in the peace index.
+
+Hopefully this exercise demonstrates the importance of estimating the magnitude of the estimated effects in our models. Even though the coefficients for democracy score and GPD are very different, we can see that the two variables have essentially the same effect size once we calculate estimates that are comparable.
+
+
+### Regression tables
 
 Although `summary()` will often give us everything we need to interpret our regression model results, it doesn't provide us with a way to easily get these results into a presentable format for a report or paper. Additionally, we will often want to present the results of several regression models side-by-side to make comparison and interpretation more straightforward. Fortunately, we can use the `stargazer` package to help with this.
 
