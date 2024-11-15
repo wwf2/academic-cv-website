@@ -48,7 +48,7 @@ sections:
       count: 10
     design:
       columns: '2'
-      view: citation
+      view: compact
   
   - block: markdown
     id: teaching
