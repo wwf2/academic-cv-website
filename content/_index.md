@@ -45,7 +45,7 @@ sections:
         folders:
           - publication
         exclude_featured: true
-      count: 10
+      count: 8
     design:
       columns: '2'
       view: compact
