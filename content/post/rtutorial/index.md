@@ -1880,6 +1880,76 @@ We can interpret these results as: a standard deviation change in democracy scor
 Hopefully this exercise demonstrates the importance of estimating the magnitude of the estimated effects in our models. Even though the coefficients for democracy score and GPD are very different, we can see that the two variables have essentially the same effect size once we calculate estimates that are comparable.
 
 
+### Interpretting factor and dummy variables
+
+To this point we've focused on regression model examples that include variables measured on continuous scales. It's also common to incorporate factor or categorical variables in our models. When we do include these variables, it's important to note that our interpretation of the estimated effects will be slightly different.  
+
+Before discussing how to interpret models with categorical variables, we have to consider how these models are estimated. First, including a factor variable requires that each category of the variable has a separate estimated coefficient. But, without getting into too much detail, we can't estimate a regression model that includes all categories of variable. Instead, R will leave out one category by default so that the model can be estimated. The category that is excluded from the model now becomes the *reference group*. This is important for interpreting our results because the estimated effect of each category is relative to the reference group.
+
+Let's return to our regression example examining whether democracies are less likely to experience conflict. In the models above we use a democracy index to test this question, but we could also use a simplified variable that categorizes countries into regime type. The `world` dataset includes the variable `regime.type3`, which we can use in place of the `fh.democ.score` measure.
+
+Before running the new model, let's take a quick look at the categories included in the `regime.type3` variable.
+
+
+``` r
+world %>%
+  tabyl(regime.type3)
+```
+
+```
+##         regime.type3  n   percent valid_percent
+##         Dictatorship 61 0.3609467     0.4586466
+##  Parliamentary democ 41 0.2426036     0.3082707
+##   Presidential democ 31 0.1834320     0.2330827
+##                 <NA> 36 0.2130178            NA
+```
+
+
+As the variable name implies, the measure includes three classifications: dictatorships, parliamentary democracies, and presidential democracies. Let's keep these groups in mind when we examine the regression results.
+
+
+
+``` r
+# Multiple regression analysis.
+# Replace democracy index with simple regime type.
+mod3 <- lm(formula = peace.index ~ regime.type3 + gdp.percap + frac.eth, 
+           data = world)
+
+summary(mod3) # Show results.
+```
+
+```
+## 
+## Call:
+## lm(formula = peace.index ~ regime.type3 + gdp.percap + frac.eth, 
+##     data = world)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -1.2779 -0.1666  0.0861  0.2321  0.7208 
+## 
+## Coefficients:
+##                                   Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                      2.691e+00  1.065e-01  25.278  < 2e-16 ***
+## regime.type3Parliamentary democ  1.861e-01  9.212e-02   2.021   0.0456 *  
+## regime.type3Presidential democ   6.185e-02  8.518e-02   0.726   0.4692    
+## gdp.percap                       1.105e-05  1.912e-06   5.779 6.07e-08 ***
+## frac.eth                        -8.753e-02  1.562e-01  -0.560   0.5764    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.3785 on 120 degrees of freedom
+##   (44 observations deleted due to missingness)
+## Multiple R-squared:  0.3669,	Adjusted R-squared:  0.3458 
+## F-statistic: 17.39 on 4 and 120 DF,  p-value: 2.811e-11
+```
+
+
+Notice that the results include two separate estimates for `regime.type3`, one for parliamentary democracies and one for presidential democracies. By default, R will use the modal category as the reference group when estimating a model that includes a factor variable. In this case, "dictatorship" is used as the omitted group.
+
+When interpreting these results, we have to keep in mind that the effect each `regime.type3` estimate is *relative to dictatorships*. For example, parliamentary democracies has an estimated coefficient of 0.186. This can be interpreted as: parliamentary democracies have a 0.186 higher peace index when compared with dictatorships, holding all other variables constant. Given the estimated p-value for this coefficient, we can say that this effect is statistically different from zero. The estimated effect for presidential systems is interpreted similarly (i.e., relative to dictatorships), but for this coefficient you should notice that it is not statistically significant.
+
+
 ### Regression tables
 
 Although `summary()` will often give us everything we need to interpret our regression model results, it doesn't provide us with a way to easily get these results into a presentable format for a report or paper. Additionally, we will often want to present the results of several regression models side-by-side to make comparison and interpretation more straightforward. Fortunately, we can use the `stargazer` package to help with this.
