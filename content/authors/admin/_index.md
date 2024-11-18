@@ -104,9 +104,9 @@ social:
   - icon: orcid
     icon_pack: ai
     link: https://orcid.org/0000-0002-2662-7827
-  - icon: twitter
+  - icon: bluesky
     icon_pack: fab
-    link: https://twitter.com/wwfranko
+    link: https://bsky.app/profile/billfranko.bsky.social
   # Link to a PDF of your resume/CV.
   # To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.yaml`,
   # and uncomment the lines below.
