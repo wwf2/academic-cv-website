@@ -6,7 +6,8 @@
 # Appearance
 
 appearance:
-  color: ocean
+  theme_day: ocean
+  theme_night: ocean
   font: ocean
   font_size: L
   mode: system
