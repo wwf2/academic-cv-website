@@ -1880,11 +1880,11 @@ We can interpret these results as: a standard deviation change in democracy scor
 Hopefully this exercise demonstrates the importance of estimating the magnitude of the estimated effects in our models. Even though the coefficients for democracy score and GPD are very different, we can see that the two variables have essentially the same effect size once we calculate estimates that are comparable.
 
 
-### Interpretting factor and dummy variables
+### Interpreting factor variables
 
 To this point we've focused on regression model examples that include variables measured on continuous scales. It's also common to incorporate factor or categorical variables in our models. When we do include these variables, it's important to note that our interpretation of the estimated effects will be slightly different.  
 
-Before discussing how to interpret models with categorical variables, we have to consider how these models are estimated. First, including a factor variable requires that each category of the variable has a separate estimated coefficient. But, without getting into too much detail, we can't estimate a regression model that includes all categories of variable. Instead, R will leave out one category by default so that the model can be estimated. The category that is excluded from the model now becomes the *reference group*. This is important for interpreting our results because the estimated effect of each category is relative to the reference group.
+Before discussing how to interpret models with categorical variables, we have to consider how these models are estimated. First, including a factor variable requires that each category of the variable has a separate estimated coefficient. But, without getting into too much detail, we can't estimate a regression model that includes all categories of the variable. Instead, R will leave out one category by default so that the model can be estimated. The category that is excluded from the model now becomes the *reference group*. This is important for interpreting our results because the estimated effect of each category is relative to the reference group.
 
 Let's return to our regression example examining whether democracies are less likely to experience conflict. In the models above we use a democracy index to test this question, but we could also use a simplified variable that categorizes countries into regime type. The `world` dataset includes the variable `regime.type3`, which we can use in place of the `fh.democ.score` measure.
 
@@ -1945,9 +1945,221 @@ summary(mod3) # Show results.
 ```
 
 
-Notice that the results include two separate estimates for `regime.type3`, one for parliamentary democracies and one for presidential democracies. By default, R will use the modal category as the reference group when estimating a model that includes a factor variable. In this case, "dictatorship" is used as the omitted group.
+Notice that the results include two separate estimates for `regime.type3`, one for parliamentary democracies and one for presidential democracies. By default, R will use the first listed category as the reference group when estimating a model that includes a factor variable. In this case, "dictatorship" is used as the omitted group.
 
 When interpreting these results, we have to keep in mind that the effect each `regime.type3` estimate is *relative to dictatorships*. For example, parliamentary democracies has an estimated coefficient of 0.186. This can be interpreted as: parliamentary democracies have a 0.186 higher peace index when compared with dictatorships, holding all other variables constant. Given the estimated p-value for this coefficient, we can say that this effect is statistically different from zero. The estimated effect for presidential systems is interpreted similarly (i.e., relative to dictatorships), but for this coefficient you should notice that it is not statistically significant.
+
+It's also important to note that the `lm()` regression function will treat *ordered factor* variables differently from unordered factors like the `regime.type3` measure we used above. For an ordered factor, the default analysis will model the variable as a series of polynomial functions (sometimes called contrasts). This isn't what most researchers want when modeling an ordinal measure, so it's often the case that you'll want to change how ordered factors are modeled. 
+
+There are a few different ways to adjust your regression analysis when you want to include an ordered factor as an independent variable in your model. The first step is to confirm that the variable is in fact an ordered factor. One clear indication that your variable is an ordered factor will be your estimated results from your regression model. Instead of appending your factor variable with category names for each coefficient estimate, your results will include estimates for your factor variable that are appended with .L, .Q, .C, ^4, ^5, etc., depending on the number of categories that the factor includes. These indicators refer to the polynomial functions that are being modeled: linear, quadratic, cubic, and so on. Here's an example where we can compare the regression results for the `regime.type3` variable with `econ.freedom.5cat`, which is a measure of overall economic freedom in a country.
+
+
+
+``` r
+# Add econ.freedom.5cat, an ordered factor.
+mod4 <- lm(formula = peace.index ~ regime.type3 + gdp.percap + 
+             frac.eth + econ.freedom.5cat, 
+           data = world)
+
+summary(mod4) # Show results.
+```
+
+```
+## 
+## Call:
+## lm(formula = peace.index ~ regime.type3 + gdp.percap + frac.eth + 
+##     econ.freedom.5cat, data = world)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.35116 -0.12323  0.06941  0.19744  0.71264 
+## 
+## Coefficients:
+##                                   Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                      2.888e+00  1.208e-01  23.912  < 2e-16 ***
+## regime.type3Parliamentary democ  1.570e-01  8.569e-02   1.832  0.06963 .  
+## regime.type3Presidential democ  -8.000e-03  7.653e-02  -0.105  0.91693    
+## gdp.percap                       5.230e-06  2.582e-06   2.026  0.04515 *  
+## frac.eth                        -3.733e-02  1.399e-01  -0.267  0.79010    
+## econ.freedom.5cat.L             -4.747e-01  1.729e-01  -2.746  0.00702 ** 
+## econ.freedom.5cat.Q              3.366e-02  1.112e-01   0.303  0.76257    
+## econ.freedom.5cat.C             -1.960e-02  7.846e-02  -0.250  0.80316    
+## econ.freedom.5cat^4              7.461e-03  6.120e-02   0.122  0.90319    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.3327 on 113 degrees of freedom
+##   (47 observations deleted due to missingness)
+## Multiple R-squared:  0.447,	Adjusted R-squared:  0.4078 
+## F-statistic: 11.42 on 8 and 113 DF,  p-value: 9.284e-12
+```
+
+
+You should notice that the estimates for `econ.freedom.5cat` are appended with the notation for polynomial functions (.L, .Q, .C, and ^4). 
+
+Another way to verify that the variable is an ordered factor is to use the `glimpse()` function.
+
+
+
+``` r
+world %>%
+  select(regime.type3, econ.freedom.5cat) %>%
+  glimpse()
+```
+
+```
+## Rows: 169
+## Columns: 2
+## $ regime.type3      <fct> Dictatorship, Parliamentary democ, Dictatorship, Dic…
+## $ econ.freedom.5cat <ord> 4. Mostly unfree, 3. Moderately free, 5. Repressed, …
+```
+
+
+We can see that in the `glimpse()` output next to `regime.type3` is `<fct>`, indicating that this variable is an factor (unordered), and next to `econ.freedom.5cat` is `<ord>`, which indicates that it is an ordered factor. 
+
+Going back to the regression model that includes `econ.freedom.5cat`, interpreting these polynomial function results isn't particularly intuitive in this case. There a few ways to change how ordered factors are modeled, but we'll look at two common approaches. First, we can create a copy of the `econ.freedom.5cat` variable and specify that we want the new version of the variable to be an *unordered factor*. This can be done by wrapping the variable in the `factor()` function and include the option `ordered = FALSE`.
+
+
+
+``` r
+world <- world %>%
+  mutate(econ.free.5uno = factor(econ.freedom.5cat, ordered = FALSE))
+```
+
+
+Now if we include our new variable in our regression model, we'll get results that we can interpret in the same way we interpreted `regime.type3`.
+
+
+
+``` r
+mod5 <- lm(formula = peace.index ~ regime.type3 + gdp.percap + 
+             frac.eth + econ.free.5uno, 
+           data = world)
+
+summary(mod5) # Show results.
+```
+
+```
+## 
+## Call:
+## lm(formula = peace.index ~ regime.type3 + gdp.percap + frac.eth + 
+##     econ.free.5uno, data = world)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.35116 -0.12323  0.06941  0.19744  0.71264 
+## 
+## Coefficients:
+##                                    Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                       3.214e+00  2.476e-01  12.978   <2e-16 ***
+## regime.type3Parliamentary democ   1.570e-01  8.569e-02   1.832   0.0696 .  
+## regime.type3Presidential democ   -8.000e-03  7.653e-02  -0.105   0.9169    
+## gdp.percap                        5.230e-06  2.582e-06   2.026   0.0452 *  
+## frac.eth                         -3.733e-02  1.399e-01  -0.267   0.7901    
+## econ.free.5uno2. Mostly free     -2.002e-01  1.767e-01  -1.133   0.2597    
+## econ.free.5uno3. Moderately free -3.380e-01  2.010e-01  -1.682   0.0954 .  
+## econ.free.5uno4. Mostly unfree   -4.756e-01  2.226e-01  -2.136   0.0348 *  
+## econ.free.5uno5. Repressed       -6.129e-01  2.366e-01  -2.590   0.0109 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.3327 on 113 degrees of freedom
+##   (47 observations deleted due to missingness)
+## Multiple R-squared:  0.447,	Adjusted R-squared:  0.4078 
+## F-statistic: 11.42 on 8 and 113 DF,  p-value: 9.284e-12
+```
+
+
+The second approach to altering our ordered factor is to convert it into a numeric variable that we can then interpret as a continuous level measure. This can be done using the `as.numeric()` function. This will transform the ordered factor into a variable taking on values numbered 1, 2, 3, etc., matching the ordered categories. 
+
+
+
+``` r
+world <- world %>%
+  mutate(econ.free.5num = as.numeric(econ.freedom.5cat))
+```
+
+
+When making this kind of change, it's usually wise to check and make sure the newly created numeric variable is consistent with the original variable
+
+
+
+``` r
+# Original ordered factor.
+world %>%
+  tabyl(econ.freedom.5cat)
+```
+
+```
+##   econ.freedom.5cat  n    percent valid_percent
+##             1. Free  5 0.02958580    0.03067485
+##      2. Mostly free 33 0.19526627    0.20245399
+##  3. Moderately free 50 0.29585799    0.30674847
+##    4. Mostly unfree 58 0.34319527    0.35582822
+##        5. Repressed 17 0.10059172    0.10429448
+##                <NA>  6 0.03550296            NA
+```
+
+
+``` r
+# New numeric version.
+world %>%
+  tabyl(econ.free.5num)
+```
+
+```
+##  econ.free.5num  n    percent valid_percent
+##               1  5 0.02958580    0.03067485
+##               2 33 0.19526627    0.20245399
+##               3 50 0.29585799    0.30674847
+##               4 58 0.34319527    0.35582822
+##               5 17 0.10059172    0.10429448
+##              NA  6 0.03550296            NA
+```
+
+
+The new numeric values match the original ordered categories. When including the new variable in our regression model, it's important to keep in mind that higher values on this new scale indicate more economically repressed countries. 
+
+
+
+``` r
+mod6 <- lm(formula = peace.index ~ regime.type3 + gdp.percap + 
+             frac.eth + econ.free.5num, 
+           data = world)
+
+summary(mod6) # Show results.
+```
+
+```
+## 
+## Call:
+## lm(formula = peace.index ~ regime.type3 + gdp.percap + frac.eth + 
+##     econ.free.5num, data = world)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.34940 -0.11999  0.06642  0.20370  0.71274 
+## 
+## Coefficients:
+##                                   Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)                      3.297e+00  2.111e-01  15.618  < 2e-16 ***
+## regime.type3Parliamentary democ  1.535e-01  8.340e-02   1.840  0.06828 .  
+## regime.type3Presidential democ  -8.227e-03  7.527e-02  -0.109  0.91316    
+## gdp.percap                       5.451e-06  2.284e-06   2.386  0.01864 *  
+## frac.eth                        -3.425e-02  1.366e-01  -0.251  0.80239    
+## econ.free.5num                  -1.408e-01  4.625e-02  -3.044  0.00289 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.3285 on 116 degrees of freedom
+##   (47 observations deleted due to missingness)
+## Multiple R-squared:  0.4464,	Adjusted R-squared:  0.4225 
+## F-statistic:  18.7 on 5 and 116 DF,  p-value: 1.351e-13
+```
+
+
+When including an ordinal variable in a regression model, we have to keep in mind that we are assuming that the distance between categories is equivalent. This isn't always the case, which suggests that we should be cautious when interpreting the estimated effects of our ordinal independent variables.
+
 
 
 ### Regression tables
@@ -2026,7 +2238,49 @@ stargazer(mod1, mod2, type = "text")
 ```
 
 
-This table makes it much easier to compare the estimated effects of democracy on peace for our two models. 
+One important change you probably want to make to the output of `stargazer()` is the levels used to indicate statistical significance. By default the table will include a star indicator for coefficients that meet a p-value cutoff of 0.10, which is not the standard we want to use. At a minimum we want a p-value below 0.05 in order to conclude that an estimated effect is statistically significant. We can change the star indicators by using the `star.cutoffs =` option.
+
+
+
+``` r
+stargazer(mod1, mod2, type = "text",
+          star.cutoffs = c(0.05, 0.01, 0.001))
+```
+
+```
+## 
+## ====================================================================
+##                                   Dependent variable:               
+##                     ------------------------------------------------
+##                                       peace.index                   
+##                               (1)                      (2)          
+## --------------------------------------------------------------------
+## fh.democ.score              0.011***                0.007***        
+##                             (0.001)                  (0.001)        
+##                                                                     
+## gdp.percap                                         0.00001***       
+##                                                     (0.00000)       
+##                                                                     
+## frac.eth                                             -0.106         
+##                                                      (0.128)        
+##                                                                     
+## Constant                    2.324***                2.438***        
+##                             (0.061)                  (0.099)        
+##                                                                     
+## --------------------------------------------------------------------
+## Observations                  161                      145          
+## R2                           0.446                    0.504         
+## Adjusted R2                  0.443                    0.493         
+## Residual Std. Error     0.377 (df = 159)        0.342 (df = 141)    
+## F Statistic         128.168*** (df = 1; 159) 47.699*** (df = 3; 141)
+## ====================================================================
+## Note:                                  *p<0.05; **p<0.01; ***p<0.001
+```
+
+
+Now the p-value cutoffs are the same as those included in the `summary()` output, where one star indicates significance at the 0.05 level. This table makes it much easier to compare the estimated effects of democracy on peace for our two models. 
+
+
 
 
 
