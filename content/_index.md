@@ -45,10 +45,10 @@ sections:
         folders:
           - publication
         exclude_featured: true
-      count: 8
+      count: 10
     design:
       columns: '2'
-      view: compact
+      view: citation
   
   - block: markdown
     id: teaching
