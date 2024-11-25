@@ -35,7 +35,7 @@ tags:
 - state politics
 - tscs
 url_dataset: "https://dataverse.unc.edu/dataset.xhtml?persistentId=doi:10.15139/S3/D9ZUIB"
-url_:
+links:
 - name: "Appendix"
   url: "static/uploads/IneqPerceptions-Appendix_2016.12.20.pdf"
 ---
