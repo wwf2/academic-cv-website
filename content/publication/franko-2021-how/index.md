@@ -19,4 +19,5 @@ tags:
 - public opinion
 - public policy
 - state politics
+url_dataset: "https://dataverse.unc.edu/dataset.xhtml?persistentId=doi:10.15139/S3/OKCXPZ"
 ---
