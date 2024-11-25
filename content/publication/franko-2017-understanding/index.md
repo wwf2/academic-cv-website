@@ -37,5 +37,5 @@ tags:
 url_dataset: "https://dataverse.unc.edu/dataset.xhtml?persistentId=doi:10.15139/S3/D9ZUIB"
 links:
 - name: "Appendix"
-  url: "static/uploads/IneqPerceptions-Appendix_2016.12.20.pdf"
+  url: "uploads/IneqPerceptions-Appendix_2016.12.20.pdf"
 ---
