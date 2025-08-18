@@ -1723,7 +1723,7 @@ world %>%
 ## 2 114482 ▇▂▁▁▁
 ```
 
-Our descriptive statistics show us that the democracy score ranges from 1 to 100, while per capita GDP ranges from \$752 to \$114,482. Thinking about how to interpret our regression coefficients, a one unit increase in the democracy score is very different from a one unit increase in per capita GDP. 
+Our descriptive statistics show us that the democracy score ranges from 1 to 100, while per capita GDP ranges from 752 to 114,482. Thinking about how to interpret our regression coefficients, a one unit increase in the democracy score is very different from a one unit increase in per capita GDP. 
 
 Because of this, we have to find a reasonable way to compare the estimated effects from our regression models. This is where the standard deviation can be helpful. We can calculate how a standard deviation change in each independent variable of interest effects the dependent variable. From our summary table, we can see that the sd of `fh.democ.score` is 30.2 and the sd of `gdp.percap` is 20,960. 
 
