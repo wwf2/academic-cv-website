@@ -1,7 +1,7 @@
 ---
-title: "R/RStudio tutorial"
+title: "R & RStudio for Political Science"
 author: "William W. Franko"
-date: "2024-09-08"
+date: "2025-08-18"
 toc: true
 ---
 
@@ -25,7 +25,7 @@ If you haven't already, go ahead and [download R and RStudio](https://posit.co/d
 
 Once you've installed both programs you can launch RStudio like you would any other app. RStudio is able to directly interface with R so there's no need to launch the R app. 
 
-Below is a screenshot of the RStudio interface with descriptive labels for each of the four panes. 
+Here's a screenshot of the RStudio interface with descriptive labels for each of the four panes. 
 
 
 <div class="figure">
@@ -54,6 +54,7 @@ One more thing before we get started. Some installations of RStudio will default
 <img src="workspacewindow.png" alt="Here's what your workspace settings should look like" width="60%" />
 <p class="caption">Here's what your workspace settings should look like</p>
 </div>
+
 
 
 ### Let's run some code
@@ -217,20 +218,7 @@ library(RCPA3)
 library(tidyverse)
 ```
 
-```
-## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-## ✔ dplyr     1.1.4     ✔ readr     2.1.5
-## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-## ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-## ✔ purrr     1.0.2     
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-```
-
-Once the packages are loaded, we can take a look at the data. Here are a few functions you'll want to use when you get started with a new dataset. Let's take a look at the `states` data, which includes numerous variables for each of the 50 states.
+Once the packages are loaded, we can take a look at the datasets that are included with the `RCPA3` package. We will mainly be working with with three different datasets: data on the 50 states (called `states`), opinion data from people surveyed by the American National Election Studies (called `nes`), and data on over 160 countries around the world (called `world`). Here are a few functions you'll want to use when you get started with a new dataset. Let's take a look at the `states` data, which includes numerous variables for each of the 50 states.
 
 
 
@@ -282,10 +270,6 @@ fig.hist <- ggplot(states, mapping = aes(x = vep20.turnout)) +
 fig.hist # Run the object we created to show the plot.
 ```
 
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-```
-
 ![](Rtutorial_files/figure-html/hist-to-1.png)<!-- -->
 
 
@@ -300,10 +284,6 @@ fig.hist <- ggplot(states, mapping = aes(x = vep20.turnout)) +
   labs(x = "Voter turnout in 2020",
        title = "Histogram of 2020 voter turnout")
 fig.hist 
-```
-
-```
-## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 ```
 
 ![](Rtutorial_files/figure-html/hist-to2-1.png)<!-- -->
@@ -324,10 +304,6 @@ fig.scat <- ggplot(states, mapping = aes(x = hs.or.more, y = vep20.turnout)) +
 fig.scat
 ```
 
-```
-## `geom_smooth()` using formula = 'y ~ x'
-```
-
 ![](Rtutorial_files/figure-html/scatter-eduto-1.png)<!-- -->
 
 
@@ -339,196 +315,107 @@ In this figure we also included the `geom_smooth()` option. This gives the estim
 
 It’s typically a good idea to learn about the basic characteristics of the variables in a dataset, particularly when you’re using secondary data. This can be done by obtaining the descriptive statistics for the variables you plan on using, which includes measures of central tendency (e.g., mean, median, and mode) and dispersion (e.g., variance and standard deviation).
 
-The method you use to describe a variable will depend on the variable’s level of measurement. Remember, the only measure of central tendency that is appropriate for a nominal variable is the mode, which we define as the most frequently occurring value. For ordinal variables, we can use the mode or the median. The mode, median, and mean can all be used for continuous variables. In fact, it’s probably wise to look at all of them since together the three measures can tell us about the symmetry of the variable’s distribution.
+The method you use to describe a variable will depend on the variable’s level of measurement. Remember, the only measure of central tendency that is appropriate for a nominal variable is the mode, which we define as the most frequently occurring value. For ordinal variables, we can use the mode or the median. The mode, median, and mean can all be used for continuous variables, but it typically makes sense to focus on the mean and median of continuous variables. Importantly, together the mean and median can tell us about the symmetry of the variable’s distribution.
 
-In the previous section we used the `glimpse()` command to get basic information about the variables in the `states` dataset, which includes the variable type. Variable types in R datasets can include numeric, integer, character, and factor. The variable type will not always correspond to the variable metric, but it can help with identifying the metric and is important to know when analyzing your data. It's also important to keep in mind that a variable can be stored as a variable type that isn't ideal for your analysis. When this happens we have to change the type, which will be covered in the data transformation section. 
+In the previous section we used the `glimpse()` command to get basic information about the variables in the `states` dataset, which includes the variable type. Variable types in R datasets can include numeric, integer, character, and factor. The variable type will not always correspond to the variable metric, but it can help with identifying the metric and is important to know when analyzing your data. It's also important to keep in mind that a variable can be stored as a variable type that isn't ideal for your analysis. When this happens we have to change the type, which will be covered in the data transformation section. For now, just keep in mind that the data you're using may not always be structured in a way that works best for you.
 
-The `gtsummary` package is very useful for putting together descriptive statistics, particularly for continuous level variables. It let's us customize the what we include in the descriptive statistics and the package makes it fairly easy to save the tables we create (for example, in ms word format). We'll also need to create some tabulations of our nominal and ordinal level variables. For tabulations we'll use the `questionr` package. 
-
-Let's give it a try. Similar to the other packages we've used, you'll have to install `gtsummary` and `janitor` the first time you use them We'll also be using the `RCPA3` and `tidyverse` packages. 
+One way to get the descriptive statistics we want is to calculate them using the R functions we used in the intro section. When we're working with datasets, we can use `summarize()` to get statistics for each variable we are working with. For this example we will again be using the `states` dataset from the `RCPA3` package, as well as the `tidyverse` package.
 
 
-
-``` r
-# First install packages if you haven't already.
-#install.packages("gtsummary")
-#install.packages("janitor")
-
-# Load the packages.
-library(gtsummary)
-library(janitor)
-```
-
-```
-## 
-## Attaching package: 'janitor'
-```
-
-```
-## The following object is masked from 'package:RCPA3':
-## 
-##     crosstab
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     chisq.test, fisher.test
-```
 
 ``` r
 library(RCPA3)
 library(tidyverse)
 
 states %>% # Dataset we want to use.
-  select(vep20.turnout, region, cig.tax.3cat) %>% # Select variables we want stats for.
-  tbl_summary(missing = "no") # Get the descriptive statistics.
+  summarize(mean_vep = mean(vep20.turnout)) # Get the mean.
 ```
 
-<table style="NAborder-bottom: 0;">
- <thead>
-  <tr>
-   <th style="text-align:left;"> Characteristic </th>
-   <th style="text-align:center;"> N = 50 </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> Percent turnout of voting eligible population in 2020 </td>
-   <td style="text-align:center;"> 68.0 (64.5, 72.8) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Census region </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Northeast </td>
-   <td style="text-align:center;"> 9 (18%) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Midwest </td>
-   <td style="text-align:center;"> 12 (24%) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> South </td>
-   <td style="text-align:center;"> 16 (32%) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> West </td>
-   <td style="text-align:center;"> 13 (26%) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Cigarette tax per pack, 3 ordinal categories </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Low (under $1) </td>
-   <td style="text-align:center;"> 12 (24%) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Medium ($1 - $3) </td>
-   <td style="text-align:center;"> 29 (58%) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> High (over $3) </td>
-   <td style="text-align:center;"> 9 (18%) </td>
-  </tr>
-</tbody>
-<tfoot><tr><td style="padding: 0; " colspan="100%">
-<sup>1</sup> Median (IQR); n (%)</td></tr></tfoot>
-</table>
+```
+##   mean_vep
+## 1   67.948
+```
 
-A quick note on this code. This is the first time we are using `%>%`, which is called a pipe operator in tidy data language. The idea is that it allows you to "pipe" an object forward to one or more additional functions. In the command above we start with the `states` dataset, then use `select()` to choose the variables from the `states` dataset we want to work with, and finally use the `tbl_summary()` to get our descriptive statistics. 
 
-The first thing you might notice about the output is that the `tbl_summary()` function creates a nicely formatted table by default and diplays it for you in the viewer pane. It also gives the variable labels so we have more information than just the variable names. In our table we are getting descriptive statistics for voter turnout in the states, state region, and data on cigarette tax policies.
+A quick note on this code. This is the first time we are using `%>%`, which is called a *pipe operator* in tidy data language. The idea is that it allows you to "pipe" an object forward to one or more additional functions. For this example we start with the `states` dataset, then use `summarize()` to specify which statistics we want to calculate. 
 
-By default, `tbl_summary()` gives us different statistics depending on the variable measurement metric. The footnote of the table tells us that for continuous variables it is giving us the median and IQR, or interquartile range. IQR is just a fancy way of saying the 25th and 75th percentiles. For all other non-continuous variables we get the number of observations in each variable group along with the percentage. In this example, `vep20.turnout` is the only continuous variable while `region` and `cig.tax.3cat` are non-continuous. Both are considered categorical by `tbl_summary()` even though `region` is nominal and `cig.tax.3cat` is categorical. Below we'll address why we might want different descriptive statistics for these different levels of measurement.
-
-These default statistics are a good start, but it would be nice to have some additional information. For example, we'll probably want the mean, variance, and standard deviation of our continuous variables. Here's how we can get everything we need. 
+Here we get the mean of the voter turnout variable `vep20.turnout`, which we named `mean_vep`. It's fairly straightforward to add other calculations. For instance, let's also get the median and standard deviation of `vep20.turnout`. 
 
 
 
 ``` r
-states %>%
-  select(vep20.turnout, region, cig.tax.3cat) %>%
-  tbl_summary(
-    statistic = list(
-      all_continuous() ~ "{mean}, {median}, {var}, {sd} /
-      [{p25}, {p75}] / [{min}, {max}]",
-      all_categorical() ~ "{p}% ({n})"
-    ),
-    missing = "no",
-    ) %>%
-  add_stat_label(location = "column") 
+states %>% 
+  summarize(mean_vep = mean(vep20.turnout),
+            med_vep = median(vep20.turnout),
+            sd_vep = sd(vep20.turnout)) 
 ```
 
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Characteristic </th>
-   <th style="text-align:center;"> Statistic </th>
-   <th style="text-align:center;"> N = 50 </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> Percent turnout of voting eligible population in 2020 </td>
-   <td style="text-align:center;"> Mean, Median, Variance, SD /      [IQR] / [Range] </td>
-   <td style="text-align:center;"> 67.9, 68.0, 35.7, 6.0 /[64.5, 72.8] / [55.0, 80.0] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Census region </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Northeast </td>
-   <td style="text-align:center;"> % (n) </td>
-   <td style="text-align:center;"> 18% (9) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Midwest </td>
-   <td style="text-align:center;"> % (n) </td>
-   <td style="text-align:center;"> 24% (12) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> South </td>
-   <td style="text-align:center;"> % (n) </td>
-   <td style="text-align:center;"> 32% (16) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> West </td>
-   <td style="text-align:center;"> % (n) </td>
-   <td style="text-align:center;"> 26% (13) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Cigarette tax per pack, 3 ordinal categories </td>
-   <td style="text-align:center;">  </td>
-   <td style="text-align:center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Low (under $1) </td>
-   <td style="text-align:center;"> % (n) </td>
-   <td style="text-align:center;"> 24% (12) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Medium ($1 - $3) </td>
-   <td style="text-align:center;"> % (n) </td>
-   <td style="text-align:center;"> 58% (29) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> High (over $3) </td>
-   <td style="text-align:center;"> % (n) </td>
-   <td style="text-align:center;"> 18% (9) </td>
-  </tr>
-</tbody>
-</table>
+```
+##   mean_vep med_vep   sd_vep
+## 1   67.948      68 5.971949
+```
 
 
-In addition to getting the additional statistics we want, the code also slightly alters the stats we get for categorical variables (percentages with number of observations in parentheses). The last line adds some nice column labels. 
+Notice that within the `summarize()` function we separate each calculation with a comma. This approach works fine if we're working with a small number of variables, but can become cumbersome as we add variables and statistics. And we might also want to include non-continuous variables in a summary of our descriptive statistics.
+
+We'll use the `skimr` package to simplify the process of producing descriptive statistics and putting them together in a nicely formatted table. It let's us customize the what we include in the summary table and also makes it fairly easy to save (or export) the tables we create (for example, in ms word format). We'll also need to create some tabulations of our nominal and ordinal level variables. For tabulations we'll use the `janitor` package. 
+
+Let's give it a try. Similar to the other packages we've used, you'll have to install `skimr` and `janitor` the first time you use them. We'll also be using the `RCPA3` and `tidyverse` packages, which were loaded above. 
 
 
-The `tbl_summary()` command provides a number of descriptive statistics we might need for our variables, but there are limitations to the information we can get for categorical level variables. We might need, for instance, an easy way to determine the median value of an ordinal level variable. (Why can't we use the median for our nominal level variable?) Frequency tables work well for this task, and they will also be essential when analyzing some bivariate relationships. Let's create a tabulation of the `cig.tax.3cat` variable using the `tabyl()` function from the `janitor` package. 
+
+``` r
+# First install packages if you haven't already.
+#install.packages("skimr")
+#install.packages("janitor")
+
+# Load the packages.
+library(skimr)
+library(janitor)
+
+states %>% # Dataset we want to use.
+  skim(vep20.turnout, region, cig.tax.3cat) # Select variables we want stats for.
+```
+
+
+Table: Data summary
+
+|                         |           |
+|:------------------------|:----------|
+|Name                     |Piped data |
+|Number of rows           |50         |
+|Number of columns        |149        |
+|_______________________  |           |
+|Column type frequency:   |           |
+|factor                   |2          |
+|numeric                  |1          |
+|________________________ |           |
+|Group variables          |None       |
+
+
+**Variable type: factor**
+
+|skim_variable | n_missing| complete_rate|ordered | n_unique|top_counts                        |
+|:-------------|---------:|-------------:|:-------|--------:|:---------------------------------|
+|region        |         0|             1|FALSE   |        4|Sou: 16, Wes: 13, Mid: 12, Nor: 9 |
+|cig.tax.3cat  |         0|             1|FALSE   |        3|Med: 29, Low: 12, Hig: 9          |
+
+
+**Variable type: numeric**
+
+|skim_variable | n_missing| complete_rate|  mean|   sd| p0|  p25| p50|   p75| p100|hist  |
+|:-------------|---------:|-------------:|-----:|----:|--:|----:|---:|-----:|----:|:-----|
+|vep20.turnout |         0|             1| 67.95| 5.97| 55| 64.5|  68| 72.77|   80|▃▆▇▇▅ |
+
+In the command above we again start with the `states` dataset, then use `skim()` to choose the variables from the `states` dataset we want to work with and get our descriptive statistics for those selected variables. In the example we are asking for descriptive statistics on voter turnout in the states, state region, and data on cigarette tax policies.
+
+The first thing you might notice about the output is that `skim()` gives us different statistics depending on the variable measurement metric. In this case we have variables that fall into the factor type and numeric type. The variables `region` and `cig.tax.3cat` are both categorized by `skim()` as factors even though `region` is nominal and `cig.tax.3cat` is categorical. For the factor variables the output gives us very basic information about the variables, like the number of total categories and common values. Below we'll address why we will want different descriptive statistics for these different levels of measurement. 
+
+We can see that `vep20.turnout` is the only variable in the numeric section of the output. This is because the variable measures voter turnout in percentages, which can be considered a continuous variable. The output for numeric measures includes each variable's mean, standard deviation, and various percentiles. The percentiles included here are particularly helpful since they include the minimum and maximum, the median, and what is sometimes referred to as the *interquartile range*, or IQR. IQR is just a fancy way of saying the 25th and 75th percentiles. Finally, `skim()` also gives a mini histogram for each variable.
+
+Keep in mind that the `skim()` function will always include variables that take on numeric values in the numeric section, even if the variable shouldn't be summarized using descriptive statistics for continuous measures.
+
+The `skim()` command provides a number of descriptive statistics we might need for our variables, but there are limitations to the information we can get for categorical level variables. We might need, for instance, an easy way to determine the median value of an ordinal level variable. (Why can't we use the median for our nominal level variable?) Frequency tables work well for this task, and they will also be essential when analyzing some bivariate relationships. Let's create a tabulation of the `cig.tax.3cat` variable using the `tabyl()` function from the `janitor` package. 
 
 
 
@@ -545,7 +432,7 @@ states %>%
 ```
 
 
-This gives us a standard tabulation, which is nice but is essentially the same information given by `tbl_summary()`. The table will also include a valid percent column when your data has missing values (this variable doesn't). It would be really helpful to also have a cumulative percentage column given that `cig.tax.3cat` is an ordinal level variable. This is easily done by adding a line using `mutate()` and the `cumsum()` functions.
+This gives us a standard tabulation, which is nice but is essentially the same information given by `skim()`. The table will also include a valid percent column when your data has missing values (this variable doesn't). It would be really helpful to also have a cumulative percentage column given that `cig.tax.3cat` is an ordinal level variable. This is easily done by adding a line using `mutate()` and the `cumsum()` functions.
 
 
 
@@ -621,7 +508,6 @@ states %>%
 
 This example gives us the 5 lowest and then 5 highest turnout states, but we could get any number by changing the value of the `n=` option.
 
-
 Finally, depending on the data and variables you're interested in describing, plotting your data can be very useful. In the last section we created a basic histogram of the `vep20.turnout` variable. 
 
 
@@ -652,7 +538,7 @@ fig.bar <- ggplot(tabcig, mapping = aes(x = cig.tax.3cat, y = percent)) +
 fig.bar 
 ```
 
-![](Rtutorial_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](Rtutorial_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
 
 Plotting our variables is a useful way of visualizing the properties of the data in addition to using descriptive statistics. 
@@ -1554,7 +1440,7 @@ plot1 <- ggplot(tab1.ggsub, aes(y = value, x = pid)) +
 plot1 # Show the plot.
 ```
 
-![](Rtutorial_files/figure-html/unnamed-chunk-44-1.png)<!-- -->
+![](Rtutorial_files/figure-html/unnamed-chunk-43-1.png)<!-- -->
 
 
 As noted above, selecting one of the categories of the dependent variable to work with simplifies our visualization. We could, however, choose to plot all of the information we have about the relationship between party ID and importance of climate change. One way to do this would be to get separate plots for each of the five categories from our dependent variable `climate.import`. A straightforward approach for this example would be to use facets. 
@@ -1572,7 +1458,7 @@ plot1b <- ggplot(tab1.gg, aes(y = value, x = pid)) +
 plot1b # Show the plot.
 ```
 
-![](Rtutorial_files/figure-html/unnamed-chunk-45-1.png)<!-- -->
+![](Rtutorial_files/figure-html/unnamed-chunk-44-1.png)<!-- -->
 
 
 This plot offers more detail regarding the relationship between our two variables. It's up to you as a researcher to decide what works best for your analysis.
@@ -1589,7 +1475,7 @@ nes %>%
   geom_bar(stat = "summary", fun = "mean") 
 ```
 
-![](Rtutorial_files/figure-html/unnamed-chunk-46-1.png)<!-- -->
+![](Rtutorial_files/figure-html/unnamed-chunk-45-1.png)<!-- -->
 
 
 Notice that the figure is created using the `geom_bar()` plot, which does the work of calculating the mean of `ft.unions` by categories of `gender` by specifying the options `stat = "summary", fun = "mean"`. 
@@ -1607,7 +1493,7 @@ nes %>%
   geom_boxplot()
 ```
 
-![](Rtutorial_files/figure-html/unnamed-chunk-47-1.png)<!-- -->
+![](Rtutorial_files/figure-html/unnamed-chunk-46-1.png)<!-- -->
 
 
 A nice feature of the box plot is that it gives us multiple pieces of information about our data. First, the line running through the middle of each box represents the median value. The outer edges of the boxes indicate the 25th and 75th percentile of the data. The lines extending from the boxes, or whiskers, extend to 1.5 times the 25th and 75th percentiles. Finally, any data points that fall outside of the whiskers will be plotted individually. 
@@ -1624,7 +1510,7 @@ world %>%
   geom_point()
 ```
 
-![](Rtutorial_files/figure-html/unnamed-chunk-48-1.png)<!-- -->
+![](Rtutorial_files/figure-html/unnamed-chunk-47-1.png)<!-- -->
 
 
 We can also add a linear fit line if needed. 
@@ -1639,7 +1525,7 @@ world %>%
   geom_smooth(method = "lm")
 ```
 
-![](Rtutorial_files/figure-html/unnamed-chunk-49-1.png)<!-- -->
+![](Rtutorial_files/figure-html/unnamed-chunk-48-1.png)<!-- -->
 
 
 
@@ -1814,54 +1700,47 @@ It's also important to think about how we can assess the magnitude of the effect
 
 
 ``` r
-library(gtsummary)
+library(skimr)
 
 world %>%
-  select(fh.democ.score, gdp.percap) %>%
-  tbl_summary(
-    statistic = list(
-      all_continuous() ~ "{mean}, {sd} /
-      [{p25}, {p75}] / [{min}, {max}]",
-      all_categorical() ~ "{p}% ({n})"
-    ),
-    missing = "no",
-    ) 
+  skim(fh.democ.score, gdp.percap)
 ```
 
-<table style="NAborder-bottom: 0;">
- <thead>
-  <tr>
-   <th style="text-align:left;"> Characteristic </th>
-   <th style="text-align:center;"> N = 169 </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> Freedom House rating of democracy </td>
-   <td style="text-align:center;"> 55, 30 /[28, 83] / [1, 100] </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Gross domestic product per capita (in U.S. dollars) </td>
-   <td style="text-align:center;"> 20,217, 20,960 /[4,389, 29,799] / [752, 114,482] </td>
-  </tr>
-</tbody>
-<tfoot><tr><td style="padding: 0; " colspan="100%">
-<sup>1</sup> Mean, SD /       [IQR] / [Range]</td></tr></tfoot>
-</table>
+
+Table: Data summary
+
+|                         |           |
+|:------------------------|:----------|
+|Name                     |Piped data |
+|Number of rows           |169        |
+|Number of columns        |207        |
+|_______________________  |           |
+|Column type frequency:   |           |
+|numeric                  |2          |
+|________________________ |           |
+|Group variables          |None       |
+
+
+**Variable type: numeric**
+
+|skim_variable  | n_missing| complete_rate|     mean|       sd|  p0|  p25|   p50|   p75|   p100|hist  |
+|:--------------|---------:|-------------:|--------:|--------:|---:|----:|-----:|-----:|------:|:-----|
+|fh.democ.score |         0|             1|    54.66|    30.21|   1|   28|    60|    83|    100|▆▅▅▆▇ |
+|gdp.percap     |         0|             1| 20217.10| 20960.08| 752| 4389| 12848| 29799| 114482|▇▂▁▁▁ |
 
 Our descriptive statistics show us that the democracy score ranges from 1 to 100, while per capita GDP ranges from $752 to $114,482. Thinking about how to interpret our regression coefficients, a one unit increase in the democracy score is very different from a one unit increase in per capita GDP. 
 
-Because of this, we have to find a reasonable way to compare the estimated effects from our regression models. This is where the standard deviation can be helpful. We can calculate how a standard deviation change in each independent variable of interest effects the dependent variable. From our summary table, we can see that the sd of `fh.democ.score` is 30 and the sd of `gdp.percap` is 20,960. 
+Because of this, we have to find a reasonable way to compare the estimated effects from our regression models. This is where the standard deviation can be helpful. We can calculate how a standard deviation change in each independent variable of interest effects the dependent variable. From our summary table, we can see that the sd of `fh.democ.score` is 30.2 and the sd of `gdp.percap` is 20,960. 
 
 
 
 ``` r
 # sd change in fh.democ.score.
-0.007 * 30
+0.007 * 30.2
 ```
 
 ```
-## [1] 0.21
+## [1] 0.2114
 ```
 
 
@@ -1875,7 +1754,7 @@ Because of this, we have to find a reasonable way to compare the estimated effec
 ```
 
 
-We can interpret these results as: a standard deviation change in democracy score leads to a 0.21 change in the peace index. Similarly, a a standard deviation change in per capita GDP leads to a 0.2096 change in the peace index.
+We can interpret these results as: a standard deviation change in democracy score leads to a 0.2114 change in the peace index. Similarly, a a standard deviation change in per capita GDP leads to a 0.2096 change in the peace index.
 
 Hopefully this exercise demonstrates the importance of estimating the magnitude of the estimated effects in our models. Even though the coefficients for democracy score and GPD are very different, we can see that the two variables have essentially the same effect size once we calculate estimates that are comparable.
 
@@ -2283,7 +2162,6 @@ Now the p-value cutoffs are the same as those included in the `summary()` output
 
 
 
-
 ## Helpful links
 
 1. [Quick-R](https://www.statmethods.net/r-tutorial/index.html)
@@ -2293,5 +2171,4 @@ Now the p-value cutoffs are the same as those included in the `summary()` output
 1. [Introduction to ggplot2](https://ggplot2.tidyverse.org/articles/ggplot2.html)
 
 1. Google. You are definitely not the only person looking for answers to questions you have about R. Many of these questions are asked on sites like Stack Overflow, Stack Exchange, Posit Community, and Reddit, where more experienced R users often give useful responses.
-
 
