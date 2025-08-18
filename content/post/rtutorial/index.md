@@ -377,35 +377,31 @@ states %>% # Dataset we want to use.
   skim(vep20.turnout, region, cig.tax.3cat) # Select variables we want stats for.
 ```
 
-
-Table: Data summary
-
-|                         |           |
-|:------------------------|:----------|
-|Name                     |Piped data |
-|Number of rows           |50         |
-|Number of columns        |149        |
-|_______________________  |           |
-|Column type frequency:   |           |
-|factor                   |2          |
-|numeric                  |1          |
-|________________________ |           |
-|Group variables          |None       |
-
-
-**Variable type: factor**
-
-|skim_variable | n_missing| complete_rate|ordered | n_unique|top_counts                        |
-|:-------------|---------:|-------------:|:-------|--------:|:---------------------------------|
-|region        |         0|             1|FALSE   |        4|Sou: 16, Wes: 13, Mid: 12, Nor: 9 |
-|cig.tax.3cat  |         0|             1|FALSE   |        3|Med: 29, Low: 12, Hig: 9          |
-
-
-**Variable type: numeric**
-
-|skim_variable | n_missing| complete_rate|  mean|   sd| p0|  p25| p50|   p75| p100|hist  |
-|:-------------|---------:|-------------:|-----:|----:|--:|----:|---:|-----:|----:|:-----|
-|vep20.turnout |         0|             1| 67.95| 5.97| 55| 64.5|  68| 72.77|   80|▃▆▇▇▅ |
+```
+## ── Data Summary ────────────────────────
+##                            Values    
+## Name                       Piped data
+## Number of rows             50        
+## Number of columns          149       
+## _______________________              
+## Column type frequency:               
+##   factor                   2         
+##   numeric                  1         
+## ________________________             
+## Group variables            None      
+## 
+## ── Variable type: factor ───────────────────────────────────────────────────────
+##   skim_variable n_missing complete_rate ordered n_unique
+## 1 region                0             1 FALSE          4
+## 2 cig.tax.3cat          0             1 FALSE          3
+##   top_counts                       
+## 1 Sou: 16, Wes: 13, Mid: 12, Nor: 9
+## 2 Med: 29, Low: 12, Hig: 9         
+## 
+## ── Variable type: numeric ──────────────────────────────────────────────────────
+##   skim_variable n_missing complete_rate mean   sd p0  p25 p50  p75 p100 hist 
+## 1 vep20.turnout         0             1 67.9 5.97 55 64.5  68 72.8   80 ▃▆▇▇▅
+```
 
 In the command above we again start with the `states` dataset, then use `skim()` to choose the variables from the `states` dataset we want to work with and get our descriptive statistics for those selected variables. In the example we are asking for descriptive statistics on voter turnout in the states, state region, and data on cigarette tax policies.
 
@@ -1706,29 +1702,28 @@ world %>%
   skim(fh.democ.score, gdp.percap)
 ```
 
+```
+## ── Data Summary ────────────────────────
+##                            Values    
+## Name                       Piped data
+## Number of rows             169       
+## Number of columns          207       
+## _______________________              
+## Column type frequency:               
+##   numeric                  2         
+## ________________________             
+## Group variables            None      
+## 
+## ── Variable type: numeric ──────────────────────────────────────────────────────
+##   skim_variable  n_missing complete_rate    mean      sd  p0  p25   p50   p75
+## 1 fh.democ.score         0             1    54.7    30.2   1   28    60    83
+## 2 gdp.percap             0             1 20217.  20960.  752 4389 12848 29799
+##     p100 hist 
+## 1    100 ▆▅▅▆▇
+## 2 114482 ▇▂▁▁▁
+```
 
-Table: Data summary
-
-|                         |           |
-|:------------------------|:----------|
-|Name                     |Piped data |
-|Number of rows           |169        |
-|Number of columns        |207        |
-|_______________________  |           |
-|Column type frequency:   |           |
-|numeric                  |2          |
-|________________________ |           |
-|Group variables          |None       |
-
-
-**Variable type: numeric**
-
-|skim_variable  | n_missing| complete_rate|     mean|       sd|  p0|  p25|   p50|   p75|   p100|hist  |
-|:--------------|---------:|-------------:|--------:|--------:|---:|----:|-----:|-----:|------:|:-----|
-|fh.democ.score |         0|             1|    54.66|    30.21|   1|   28|    60|    83|    100|▆▅▅▆▇ |
-|gdp.percap     |         0|             1| 20217.10| 20960.08| 752| 4389| 12848| 29799| 114482|▇▂▁▁▁ |
-
-Our descriptive statistics show us that the democracy score ranges from 1 to 100, while per capita GDP ranges from $752 to $114,482. Thinking about how to interpret our regression coefficients, a one unit increase in the democracy score is very different from a one unit increase in per capita GDP. 
+Our descriptive statistics show us that the democracy score ranges from 1 to 100, while per capita GDP ranges from \$752 to \$114,482. Thinking about how to interpret our regression coefficients, a one unit increase in the democracy score is very different from a one unit increase in per capita GDP. 
 
 Because of this, we have to find a reasonable way to compare the estimated effects from our regression models. This is where the standard deviation can be helpful. We can calculate how a standard deviation change in each independent variable of interest effects the dependent variable. From our summary table, we can see that the sd of `fh.democ.score` is 30.2 and the sd of `gdp.percap` is 20,960. 
 
