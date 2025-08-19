@@ -1,5 +1,5 @@
 ---
-title: "R & RStudio for Political Science"
+title: "R + RStudio for Political Science"
 author: "William W. Franko"
 date: "2025-08-18"
 toc: true
