@@ -32,6 +32,7 @@ bio: My research focuses on the causes and consequences of political and economi
 interests:
 - Political and economic inequality
 - Class politics
+- Public policy
 - Redistribution
 - Political participation
 - Public opinion
@@ -118,5 +119,5 @@ social:
 highlight_name: true
 ---
 
-I am an associate professor in the Department of Political Science at the John D. Rockefeller IV School of Policy and Politics at West Virginia University. I study political and economic inequality and class politics in the United States. In trying to better understand the relationships among class, inequality, and politics, my research focuses on the public’s attitudes about income inequality and redistribution, the influence of participation bias on political outcomes, how political decisions shape the income distribution, and the role of class identity in American politics. 
+I am an associate professor in the Department of Political Science at the John D. Rockefeller IV School of Policy and Politics at West Virginia University. I study political inequality, economic disparities, and class politics in the United States. In trying to better understand the relationships among class, inequality, and politics, my research looks at the public’s attitudes about income inequality and redistribution, the influence of political participation bias on politics and policy, how policy decisions shape economic outcomes, and the role of social class in American politics. My work on class and inequality often focuses on state and local politics and examines policies like taxation, the minimum wage, healthcare, labor policy, and the digital divide.
 {style="text-align: justify;"}
