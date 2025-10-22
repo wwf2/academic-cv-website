@@ -963,8 +963,7 @@ world %>%
 
 With the `quantile()` function we use the `probs =` option to set the percentiles we want and set `na.rm = TRUE` so that the calculation ignores any missing data. The `type =` option sets the rules used to calculate the percentiles, including how ties are treated. There are nine different calculation types that can be used with `quantile()`, which are described in `help("quantile")`. For our purposes using `type = 2` is a good option. 
 
-Now that we have the percentiles we need to group the `gini.index` variable into quartiles, we'll use these values within the `cut()` function to appropriately group our observations into four quarters. We'll call the new variable denoting quartiles of the gini index `gini.index.4cat`. 
-
+Now that we have the percentiles we need to group the `gini.index` variable into quartiles, we'll use these values within the `cut()` function to appropriately group our observations into four quarters. It's also essential to use the `include.lowest = TRUE` option with `cut()` so you don't lose any observations. We'll name the new variable denoting quartiles of the gini index `gini.index.4cat`. 
 
 
 ``` r
@@ -974,7 +973,8 @@ world <- world %>%
            cut(gini.index, 
                quantile(gini.index, 
                         probs = c(0, .25, .50, .75, 1),
-                        type = 2, na.rm = TRUE)
+                        type = 2, na.rm = TRUE),
+               include.lowest = TRUE
                ))
 
 # Examine the new variable.
@@ -983,14 +983,13 @@ world %>%
 ```
 
 ```
-##  gini.index.4cat  n   percent valid_percent
-##      (24.2,32.8] 39 0.2307692     0.2532468
-##      (32.8,36.7] 39 0.2307692     0.2532468
-##      (36.7,42.8] 39 0.2307692     0.2532468
-##        (42.8,63] 37 0.2189349     0.2402597
-##             <NA> 15 0.0887574            NA
+##  gini.index.4cat  n    percent valid_percent
+##      [24.2,32.8] 40 0.23668639     0.2580645
+##      (32.8,36.7] 39 0.23076923     0.2516129
+##      (36.7,42.8] 39 0.23076923     0.2516129
+##        (42.8,63] 37 0.21893491     0.2387097
+##             <NA> 14 0.08284024            NA
 ```
-
 
 
 Note that the variable created using `cut()` labels the categories of the new variable with the cut points used to determine the groupings. If you just want the categories to be simple integers from 1 to 4, you can use the `labels = FALSE` option.
