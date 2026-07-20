@@ -17,7 +17,7 @@ status:
 superuser: true
 
 # Role/position/tagline
-role: Associate Professor Department of Political Science
+role: Associate Professor <br>Department of Political Science
 
 # Organizations/Affiliations to show in About widget
 organizations:
