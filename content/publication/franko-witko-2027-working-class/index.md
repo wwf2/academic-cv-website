@@ -3,11 +3,11 @@ title: Working Class Identity in American Politics
 authors:
 - William W. Franko
 - Christopher Witko
-date: '2027-01-01'
+date: '2027-05-01'
 publishDate: '2026-09-22T18:03:05.684670Z'
 publication_types:
 - book
-publication: '*Cambridge University Press*'
+publication: '*Cambridge University Press*, under contract (expected 2027)'
 abstract: Why do so many Americans identify as working class and how does working
   class identity matter in American politics? This book argues that subjective working
   class identity, distinct from objective indicators like income, education, or occupation,

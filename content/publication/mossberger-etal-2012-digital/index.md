@@ -34,6 +34,9 @@ abstract: In an age when the United Nations has declared access to the Internet 
   Cities demonstrate the significance of place for shaping our digital future and
   the need for policies that recognize the critical role of cities in addressing both
   social inequality and opportunity.
+summary: |-
+  [Digital Cities](https://academic.oup.com/book/7285) tells the story of information technology use and inequality in American metropolitan areas and discusses directions for change. We argue that mobile-only Internet, the form used by many minorities and urban poor, is a second-class form of access, and offer evidence that users with such limited access have dramatically lower levels of online activity and skill. Digital Cities demonstrate the significance of place for shaping our digital future and the need for policies that recognize the critical role of cities in addressing both social inequality and opportunity.
+featured: true
 tags:
 - geography
 - internet
