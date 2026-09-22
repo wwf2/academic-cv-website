@@ -4,7 +4,7 @@ authors:
 - Patrick Flavin
 - William W. Franko
 date: '2017-01-01'
-publishDate: '2024-01-02T16:19:11.545083Z'
+publishDate: '2026-09-22T18:31:57.527689Z'
 publication_types:
 - article-journal
 publication: '*Policy Studies Journal*'

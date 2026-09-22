@@ -5,7 +5,7 @@ authors:
 - William W. Franko
 - Christopher Witko
 date: '2023-01-01'
-publishDate: '2024-01-02T16:19:11.591891Z'
+publishDate: '2026-09-22T18:31:57.573288Z'
 publication_types:
 - article-journal
 publication: '*Political Research Quarterly*'

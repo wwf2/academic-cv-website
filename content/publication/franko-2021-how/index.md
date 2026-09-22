@@ -4,7 +4,7 @@ title: How State Responses to Economic Crisis Shape Income Inequality and Financ
 authors:
 - William W. Franko
 date: '2021-01-01'
-publishDate: '2024-01-02T16:19:11.647319Z'
+publishDate: '2026-09-22T18:31:57.630835Z'
 publication_types:
 - article-journal
 publication: '*State Politics & Policy Quarterly*'
@@ -19,5 +19,4 @@ tags:
 - public opinion
 - public policy
 - state politics
-url_dataset: "https://dataverse.unc.edu/dataset.xhtml?persistentId=doi:10.15139/S3/OKCXPZ"
 ---

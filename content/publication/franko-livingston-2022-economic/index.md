@@ -4,7 +4,7 @@ authors:
 - William W. Franko
 - Avery C. Livingston
 date: '2022-01-01'
-publishDate: '2024-01-02T16:19:11.576584Z'
+publishDate: '2026-09-22T18:31:57.557390Z'
 publication_types:
 - article-journal
 publication: '*The Social Science Journal*'

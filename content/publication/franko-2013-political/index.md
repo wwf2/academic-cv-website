@@ -4,7 +4,7 @@ title: "Political Inequality and State Policy Adoption: Predatory Lending, Child
 authors:
 - William W. Franko
 date: '2013-01-01'
-publishDate: '2024-01-02T16:19:11.605938Z'
+publishDate: '2026-09-22T18:31:57.587830Z'
 publication_types:
 - article-journal
 publication: '*Poverty & Public Policy*'

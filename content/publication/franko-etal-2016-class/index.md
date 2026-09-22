@@ -5,7 +5,7 @@ authors:
 - Nathan J. Kelly
 - Christopher Witko
 date: '2016-01-01'
-publishDate: '2024-01-02T16:19:11.569296Z'
+publishDate: '2026-09-22T18:31:57.549862Z'
 publication_types:
 - article-journal
 publication: '*Perspectives on Politics*'

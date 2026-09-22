@@ -5,7 +5,7 @@ title: 'Class Attitudes in America: Sympathy for the Poor, Resentment of the Ric
 authors:
 - William W. Franko
 date: '2019-01-01'
-publishDate: '2024-01-02T16:19:11.634678Z'
+publishDate: '2026-09-22T18:31:57.618053Z'
 publication_types:
 - article-journal
 publication: '*Perspectives on Politics*'

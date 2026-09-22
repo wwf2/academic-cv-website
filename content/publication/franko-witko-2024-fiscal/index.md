@@ -4,7 +4,7 @@ authors:
 - William W. Franko
 - Christopher Witko
 date: '2024-11-01'
-publishDate: '2024-11-15T22:12:23.447509Z'
+publishDate: '2026-09-22T18:31:57.520502Z'
 publication_types:
 - chapter
 publication: '*Politics in the American States: A Comparative Analysis*'

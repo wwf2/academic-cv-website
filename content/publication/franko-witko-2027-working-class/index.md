@@ -3,7 +3,7 @@ title: Working Class Identity in American Politics
 authors:
 - William W. Franko
 - Christopher Witko
-date: '2027'
+date: '2027-01-01'
 publishDate: '2026-09-22T18:03:05.684670Z'
 publication_types:
 - book

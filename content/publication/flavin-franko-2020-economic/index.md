@@ -4,7 +4,7 @@ authors:
 - Patrick Flavin
 - William W. Franko
 date: '2020-01-01'
-publishDate: '2024-01-02T16:19:11.555113Z'
+publishDate: '2026-09-22T18:31:57.535119Z'
 publication_types:
 - article-journal
 publication: '*Political Behavior*'
@@ -33,5 +33,4 @@ tags:
 - inequality
 - poverty
 - representation
-url_dataset: "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZBZPV3"
 ---

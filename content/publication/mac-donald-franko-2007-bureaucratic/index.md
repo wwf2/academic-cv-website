@@ -5,7 +5,7 @@ authors:
 - Jason A. MacDonald
 - William W. Franko
 date: '2007-01-01'
-publishDate: '2024-01-02T16:19:11.653797Z'
+publishDate: '2026-09-22T18:31:57.637425Z'
 publication_types:
 - article-journal
 publication: '*American Politics Research*'
