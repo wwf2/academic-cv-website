@@ -5,7 +5,7 @@ authors:
 - Caroline J. Tolbert
 - William W. Franko
 date: '2010-01-01'
-publishDate: '2024-01-02T16:19:11.673387Z'
+publishDate: '2026-09-22T18:31:57.658025Z'
 publication_types:
 - article-journal
 publication: '*Political Research Quarterly*'

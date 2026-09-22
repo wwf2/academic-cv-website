@@ -5,7 +5,7 @@ authors:
 - Caroline J. Tolbert
 - William W. Franko
 date: '2012-01-01'
-publishDate: '2024-01-02T16:19:11.665974Z'
+publishDate: '2026-09-22T18:31:57.650043Z'
 publication_types:
 - book
 publication: '*Oxford University Press*'
@@ -34,11 +34,7 @@ abstract: In an age when the United Nations has declared access to the Internet 
   Cities demonstrate the significance of place for shaping our digital future and
   the need for policies that recognize the critical role of cities in addressing both
   social inequality and opportunity.
-summary: |-
-  *Digital Cities* tells the story of information technology use and inequality in American metropolitan areas and discusses directions for change. We argue that mobile-only Internet, the form used by many minorities and urban poor, is a second-class form of access, and offer evidence that users with such limited access have dramatically lower levels of online activity and skill. *Digital Cities* demonstrate the significance of place for shaping our digital future and the need for policies that recognize the critical role of cities in addressing both social inequality and opportunity.
 tags:
 - geography
 - internet
-
-featured: true
 ---

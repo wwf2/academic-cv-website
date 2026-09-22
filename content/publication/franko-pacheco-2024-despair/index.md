@@ -3,8 +3,8 @@ title: Despair and Voter Turnout in the United States
 authors:
 - William Franko
 - Julianna Pacheco
-date: '2024-11-01'
-publishDate: '2024-11-15T22:12:23.440193Z'
+date: '2025-11-01'
+publishDate: '2026-09-22T18:31:57.512893Z'
 publication_types:
 - article-journal
 publication: '*Journal of Health Politics, Policy and Law*'

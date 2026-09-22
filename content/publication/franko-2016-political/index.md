@@ -4,7 +4,7 @@ title: Political Context, Government Redistribution, and the Public's Response t
 authors:
 - William W. Franko
 date: '2016-01-01'
-publishDate: '2024-01-02T16:19:11.620419Z'
+publishDate: '2026-09-22T18:31:57.603087Z'
 publication_types:
 - article-journal
 publication: '*The Journal of Politics*'
@@ -28,5 +28,4 @@ tags:
 - redistribution
 - representation
 - state politics
-url_dataset: "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/SYSOPW"
 ---

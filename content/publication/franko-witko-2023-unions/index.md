@@ -4,7 +4,7 @@ authors:
 - William W. Franko
 - Christopher Witko
 date: '2023-01-01'
-publishDate: '2024-01-02T16:19:11.598926Z'
+publishDate: '2026-09-22T18:31:57.580580Z'
 publication_types:
 - article-journal
 publication: '*The Journal of Politics*'
@@ -28,5 +28,4 @@ tags:
 - public perceptions
 - public policy
 - unions
-url_dataset: "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/2VHCON"
 ---
