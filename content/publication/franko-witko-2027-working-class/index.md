@@ -15,7 +15,7 @@ abstract: Why do so many Americans identify as working class and how does workin
   on social identity theory, Franko and Witko show that identification with the working
   class shapes how people interpret their economic interests and navigate political
   choices, independent of their objective class position. par Against the conventional
-  wisdom that America is uniquely a \"middle class society,\" and against claims that
+  wisdom that America is uniquely a middle class society, and against claims that
   class has become obsolete in a post-industrial economy, the book demonstrates that
   working class identification remains widespread and politically meaningful. It traces
   how this identity varies across time and demographic groups, how it is shaped by
@@ -35,8 +35,8 @@ summary: |-
   is a consequential and underexamined force in U.S. politics and policy. Drawing
   on social identity theory, we show that identification with the working
   class shapes how people interpret their economic interests and navigate political
-  choices, independent of their objective class position. par Against the conventional
-  wisdom that America is uniquely a \"middle class society,\" and against claims that
+  choices, independent of their objective class position. Against the conventional
+  wisdom that America is uniquely a middle class society, and against claims that
   class has become obsolete in a post-industrial economy, the book demonstrates that
   working class identification remains widespread and politically meaningful.
 featured: true
