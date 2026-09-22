@@ -5,7 +5,7 @@ authors:
 - Caroline J. Tolbert
 - Christopher Witko
 date: '2013-01-01'
-publishDate: '2024-01-02T16:19:11.562451Z'
+publishDate: '2026-09-22T18:31:57.542642Z'
 publication_types:
 - article-journal
 publication: '*Political Research Quarterly*'

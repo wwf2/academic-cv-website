@@ -4,7 +4,7 @@ title: More Equal than We Thought? Using Vote Validation to Better Understand Pa
 authors:
 - William W. Franko
 date: '2015-01-01'
-publishDate: '2024-01-02T16:19:11.613112Z'
+publishDate: '2026-09-22T18:31:57.595337Z'
 publication_types:
 - article-journal
 publication: '*State Politics & Policy Quarterly*'

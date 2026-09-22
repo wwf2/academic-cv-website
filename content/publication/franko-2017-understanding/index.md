@@ -3,7 +3,7 @@ title: Understanding Public Perceptions of Growing Economic Inequality
 authors:
 - William W. Franko
 date: '2017-01-01'
-publishDate: '2024-01-02T16:19:11.627414Z'
+publishDate: '2026-09-22T18:31:57.610372Z'
 publication_types:
 - article-journal
 publication: '*State Politics & Policy Quarterly*'
@@ -34,8 +34,4 @@ tags:
 - public opinion
 - state politics
 - tscs
-url_dataset: "https://dataverse.unc.edu/dataset.xhtml?persistentId=doi:10.15139/S3/D9ZUIB"
-links:
-- name: "Appendix"
-  url: "uploads/IneqPerceptions-Appendix_2016.12.20.pdf"
 ---

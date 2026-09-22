@@ -5,7 +5,7 @@ title: 'The Cash Ceiling: Why Only the Rich Run for Office—and What We Can Do 
 authors:
 - William W. Franko
 date: '2020-01-01'
-publishDate: '2024-01-02T16:19:11.641092Z'
+publishDate: '2026-09-22T18:31:57.624507Z'
 publication_types:
 - article-journal
 publication: '*Political Science Quarterly*'
